@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Plan for this app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create Link Tree type website.
 
 ## Available Scripts
 
