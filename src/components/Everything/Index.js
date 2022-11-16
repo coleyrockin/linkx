@@ -12,7 +12,8 @@ function Everything() {
         <section>
 
           <div class="container">
-            <h1>Boyd Colbert Ferando Jr.</h1>
+            {/* Google Font? */}
+            <h1>Boyd C Roberts.</h1>
             <h1>Full-stack developer</h1>
             <button>
               <a href="https://github.com/coleyrockin">Github</a>
