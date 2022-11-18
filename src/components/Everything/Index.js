@@ -3,22 +3,23 @@ import Boyd from "../../assets/imgs/BoydBGRM.png"
 
 function Everything() {
   return (
-    <figure class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-600">
+    <figure class="flex flex-col md:container mx-auto rounded-xl p-8 md:p-0 dark:bg-grey-700">
       <img src={Boyd} alt="Headshot"
-        class="w-20 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto"
+        class="w-24 h-28 md:w-48 md:h-auto rounded-full mx-auto"
         width="384" height="512" />
       <div class="pt-6 md:p-8 text-center space-y-4">
-        <h1 class="text-4xl  text-zinc-300 ">Boyd C Roberts</h1>
-        <h2 class="text-2xl  text-zinc-400 ">Full-stack developer</h2>
-        <div className='md:flex flex flex-col text-zinc-500'>
+        <h1 class="text-4xl  text-slate-100 ">Boyd Roberts</h1>
+        <blockquote className='italic'>"I was reading about this crypto..."</blockquote>
+        <h2 class="text-2xl  text-slate-500 "> Nerd || Old Man </h2>
+        <div className='md:flex flex flex-col text-zinc-300'>
           <button>
-            <a href="https://github.com/coleyrockin">Github</a>
+            <a className='text-cyan-500 text-2xl' href="https://github.com/coleyrockin">Github</a>
           </button>
           <button>
-            <a href="https://coleyrockin.github.io/react-portfolio/">Portfolio</a>
+            <a className='text-sky-400 text-2xl' href="https://coleyrockin.github.io/react-portfolio/">Portfolio</a>
           </button>
           <button>
-            <a href="https://www.linkedin.com/in/boydcroberts/">Linkedin</a>
+            <a className='text-blue-600 text-3xl' href="https://www.linkedin.com/in/boydcroberts/">Linkedin</a>
           </button>
         </div>
       </div>
