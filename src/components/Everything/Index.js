@@ -13,9 +13,10 @@ const TEXTS = [
   '"I read this book 7 years ago..."',
   '"I dont believe in money, but..."',
   '"Can I borrow $5000???"',
-  '"Society..."',
-  '"In the Bible it says...',
-  '"If you think enough, nothing makes sense"'
+  '"Society is so..."',
+  '"One time on a ...',
+  '"If you think enough, nothing makes sense"',
+  "'Art is by far.."
 
 ];
 
@@ -25,32 +26,31 @@ function Everything() {
   React.useEffect(() => {
     const intervalId = setInterval(() =>
       setIndex(index => index + 1),
-      800 // every 3 seconds
+      200 // every 3 seconds
     );
     return () => clearTimeout(intervalId);
   }, []);
   return (
-    <figure class="flex flex-col md:container mx-auto rounded-xl p-8 md:p-0 dark:bg-grey-700">
+    <figure class="flex flex-col container mx-auto rounded-xl p-4 m-8 dark:bg-gray-200 w-11/12">
       <img src={Boyd} alt="Headshot"
-        class="w-24 h-28 md:w-48 md:h-auto rounded-full mx-auto"
-        width="384" height="512" />
+        class="w-24 h-28 md:w-56 md:h-auto rounded-full mx-auto" />
       <div class="pt-6 md:p-8 text-center space-y-4">
-        <h1 class="text-4xl  text-slate-100 ">｛Boyd Roberts｝</h1>
-        <p className='flex justify-center italic'>
-          <TextTransition springConfig={presets.stiff}>
+        <h1 class="text-4xl  text-stone-300 ">｛Boyd Roberts｝</h1>
+        <p className='flex justify-center italic  text-stone-400'>
+          <TextTransition springConfig={presets.gentle}>
             {TEXTS[index % TEXTS.length]}
           </TextTransition>
         </p>
-        <h2 class="text-2xl text-slate-600">Gang | | Gang </h2>
-        <div className='md:flex flex flex-col text-zinc-300'>
+        <h2 class="text-xl text-stone-500">Gang | | Gang </h2>
+        <div className='md:flex flex flex-col'>
           <button>
-            <a className='text-cyan-700 text-2xl' href="https://github.com/coleyrockin">Github</a>
+            <a className='text-stone-600 text-2xl' href="https://github.com/coleyrockin">Github</a>
           </button>
           <button>
-            <a className='text-sky-700 text-2xl' href="https://coleyrockin.github.io/react-portfolio/">Portfolio</a>
+            <a className='text-stone-600 text-2xl' href="https://coleyrockin.github.io/react-portfolio/">Portfolio</a>
           </button>
           <button>
-            <a className='text-blue-700 text-3xl' href="https://www.linkedin.com/in/boydcroberts/">Linkedin</a>
+            <a className='text-stone-700 text-3xl' href="https://www.linkedin.com/in/boydcroberts/">Linkedin</a>
           </button>
         </div>
       </div>
