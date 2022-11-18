@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4728489d.css",
+    "main.js": "/static/js/main.8ff4541b.js",
+    "static/js/787.7a89f5dd.chunk.js": "/static/js/787.7a89f5dd.chunk.js",
+    "static/media/BoydBGRM.png": "/static/media/BoydBGRM.3c992e46be3b862d8222.png",
+    "index.html": "/index.html",
+    "main.4728489d.css.map": "/static/css/main.4728489d.css.map",
+    "main.8ff4541b.js.map": "/static/js/main.8ff4541b.js.map",
+    "787.7a89f5dd.chunk.js.map": "/static/js/787.7a89f5dd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4728489d.css",
+    "static/js/main.8ff4541b.js"
+  ]
+}
