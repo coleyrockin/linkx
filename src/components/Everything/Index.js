@@ -31,20 +31,20 @@ function Everything() {
     return () => clearTimeout(intervalId);
   }, []);
   return (
-    <figure class="flex flex-col container mx-auto rounded-xl p-4 m-8 dark:bg-gray-200 w-11/12">
+    <figure class="flex flex-col container mx-auto rounded-xl p-4 m-8 dark:bg-gray-800 w-11/12">
       <img src={Boyd} alt="Headshot"
-        class="w-24 h-28 md:w-56 md:h-auto rounded-full mx-auto" />
+        class="w-24 h-28 md:w-56 md:h-auto rounded-full mx-auto grayscale" />
       <div class="pt-6 md:p-8 text-center space-y-4">
         <h1 class="text-4xl  text-stone-300 ">｛Boyd Roberts｝</h1>
-        <p className='flex justify-center italic  text-stone-400'>
+        <p className='flex justify-center italic  text-stone-300'>
           <TextTransition springConfig={presets.gentle}>
             {TEXTS[index % TEXTS.length]}
           </TextTransition>
         </p>
-        <h2 class="text-xl text-stone-500">Gang | | Gang </h2>
+        <h2 class="text-xl text-stone-400">Gang | | Gang </h2>
         <div className='md:flex flex flex-col'>
           <button>
-            <a className='text-stone-600 text-2xl' href="https://github.com/coleyrockin">Github</a>
+            <a className='text-stone-500 text-xl' href="https://github.com/coleyrockin">Github</a>
           </button>
           <button>
             <a className='text-stone-600 text-2xl' href="https://coleyrockin.github.io/react-portfolio/">Portfolio</a>
