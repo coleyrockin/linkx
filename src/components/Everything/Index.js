@@ -1,8 +1,34 @@
 import React from 'react';
 import Boyd from "../../assets/imgs/BoydBGRM.png"
-import Typical from 'react-typical';
+import TextTransition, { presets } from "react-text-transition";
+
+const TEXTS = [
+  '"Saw this documentary..."',
+  '"Crypto will, no seriously..."',
+  '"Space is the..."',
+  '"Thats cool, but..."',
+  '"That wont exist in 10-50 years..."',
+  '"Technology is..."',
+  '"Je..."',
+  '"I read this book 7 years ago..."',
+  '"I dont believe in money, but..."',
+  '"Can I borrow $5000???"',
+  '"Society..."',
+  '"In the Bible it says...',
+  '"If you think enough, nothing makes sense"'
+
+];
 
 function Everything() {
+  const [index, setIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() =>
+      setIndex(index => index + 1),
+      800 // every 3 seconds
+    );
+    return () => clearTimeout(intervalId);
+  }, []);
   return (
     <figure class="flex flex-col md:container mx-auto rounded-xl p-8 md:p-0 dark:bg-grey-700">
       <img src={Boyd} alt="Headshot"
@@ -10,13 +36,12 @@ function Everything() {
         width="384" height="512" />
       <div class="pt-6 md:p-8 text-center space-y-4">
         <h1 class="text-4xl  text-slate-100 ">｛Boyd Roberts｝</h1>
-        <Typical
-          steps={['"Saw this documentary..."', 2000, '"crypto"', 1000, '"Elon"', 1000, '"Dude, I love Space"', 1000]}
-          loop={Infinity}
-          wrapper="blockquote"
-          className="italic"
-        />
-        <h2 class="text-2xl  text-slate-600 "> Nerd || Old Man </h2>
+        <p className='flex justify-center italic'>
+          <TextTransition springConfig={presets.stiff}>
+            {TEXTS[index % TEXTS.length]}
+          </TextTransition>
+        </p>
+        <h2 class="text-2xl text-slate-600">Gang | | Gang </h2>
         <div className='md:flex flex flex-col text-zinc-300'>
           <button>
             <a className='text-cyan-700 text-2xl' href="https://github.com/coleyrockin">Github</a>
