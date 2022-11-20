@@ -32,7 +32,7 @@ function Everything() {
   return (
     <figure class="flex flex-col container mx-auto rounded-xl p-4 m-8 dark:bg-gray-800 w-11/12">
       <img src={Boyd} alt="Headshot"
-        class="w-24 h-28 md:w-56 md:h-auto rounded-full mx-auto grayscale" />
+        class="w-24 h-auto md:w-24 md:h-auto rounded-full mx-auto grayscale" />
       <div class="pt-6 md:p-8 text-center space-y-4">
         <h1 class="text-4xl  text-stone-300 ">｛Boyd Roberts｝</h1>
         <p className='flex justify-center italic  text-stone-300'>
