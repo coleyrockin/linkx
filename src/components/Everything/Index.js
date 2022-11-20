@@ -17,7 +17,6 @@ const TEXTS = [
   '"One time on a ...',
   '"If you think enough, nothing makes sense"',
   "'Art is by far.."
-
 ];
 
 function Everything() {
@@ -47,10 +46,10 @@ function Everything() {
             <a className='text-stone-500 text-xl' href="https://github.com/coleyrockin">Github</a>
           </button>
           <button>
-            <a className='text-stone-600 text-2xl' href="https://coleyrockin.github.io/react-portfolio/">Portfolio</a>
+            <a className='text-stone-700 text-2xl' href="https://coleyrockin.github.io/react-portfolio/">Portfolio</a>
           </button>
           <button>
-            <a className='text-stone-700 text-3xl' href="https://www.linkedin.com/in/boydcroberts/">Linkedin</a>
+            <a className='text-stone-900 text-3xl' href="https://www.linkedin.com/in/boydcroberts/">Linkedin</a>
           </button>
         </div>
       </div>
