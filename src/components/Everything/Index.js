@@ -44,18 +44,18 @@ function Everything() {
           </TextTransition>
         </p>
         <h2 class="text-xl text-stone-400">Gang | | Gang </h2>
-        <div className='md:flex flex flex-col'>
+        <div className='md:flex flex flex-col whitespace-pre'>
           <button>
             <a className='text-stone-700 text-xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-gray-500 to-slate-500 hover:text-slate-300 focus:outline-none px-5 py-2.5 rounded-md'
               href="https://github.com/coleyrockin">Github <FaGithub /></a>
           </button>
           <button>
             <a className='text-stone-500 text-2xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-slate-600 to-gray-600 hover:text-slate-300 focus:outline-none px-5 py-2.5 rounded-md'
-              href="https://coleyrockin.github.io/react-portfolio/">Portfolio<FaGlobe /></a>
+              href="https://coleyrockin.github.io/react-portfolio/">Portfolio <FaGlobe /></a>
           </button>
           <button>
             <a className='text-stone-400 text-3xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-gray-700 to-slate-700 hover:text-slate-300  focus:outline-none px-5 py-2.5 rounded-md'
-              href="https://www.linkedin.com/in/boydcroberts/">Linkedin<FaLinkedin /></a>
+              href="https://www.linkedin.com/in/boydcroberts/">Linkedin <FaLinkedin /></a>
           </button>
         </div>
       </div>
