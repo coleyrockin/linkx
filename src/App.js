@@ -3,9 +3,11 @@ import Everything from "./components/Everything/Index";
 
 function App() {
   return (
-    <main className="flex">
-      <Everything></Everything>
-    </main>
+    <div className="">
+      <main className="">
+        <Everything></Everything>
+      </main>
+    </div>
   );
 }
 
