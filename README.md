@@ -10,7 +10,7 @@ Create Link Tree type website out of react, and learn more front end tools.
 * Tailwind for CSS
 
 ## Screenshot
-![img](/src/assets/imgs/LinkxSC.png)
+<img src="src/assets/imgs/LinkxSC.png" width="250">
 
 ## Available Scripts
 
