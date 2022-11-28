@@ -54,7 +54,7 @@ function Everything() {
           </button>
           <button>
             <a className='text-stone-400 text-2xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-slate-600 to-gray-600 hover:text-slate-300 focus:outline-none px-5 py-2.5 rounded-md'
-              href="https://coleyrockin.github.io/react-portfolio/">Portfolio <FaGlobe /></a>
+              href="https://www.boydcroberts.org/">Portfolio <FaGlobe /></a>
           </button>
           <button>
             <a className='text-stone-400 text-3xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-gray-700 to-slate-700 hover:text-slate-300  focus:outline-none px-5 py-2.5 rounded-md'
