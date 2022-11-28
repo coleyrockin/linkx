@@ -15,11 +15,14 @@ const TEXTS = [
   '"I dont believe in..."',
   '"Can I borrow..."',
   '"Society is so..."',
-  '"One time on a ...',
+  '"One time...',
   '"If you think enough, nothing..."',
-  '"Art is by far..."',
+  '"Art is..."',
   '"I highly doubt it"',
-  '"This Podcast..."'
+  '"This Podcast..."',
+  '"Elon said...',
+  '"Saw an article about..."',
+  '"Bob Dylan..."'
 
 ];
 
