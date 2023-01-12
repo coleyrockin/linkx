@@ -19,7 +19,7 @@ const TEXTS = [
   '"If you think enough, nothing..."',
   '"Art is..."',
   '"Highly doubt it"',
-  '"This Podcast..."',
+  '"So this Podcast..."',
   '"Elon said...',
   '"Saw an article about..."',
   '"Bob Dylan..."'
@@ -32,7 +32,7 @@ function Everything() {
   React.useEffect(() => {
     const intervalId = setInterval(() =>
       setIndex(index => index + 1),
-      200 // every 3 seconds
+      250 // ml of speed
     );
     return () => clearTimeout(intervalId);
   }, []);
@@ -42,7 +42,7 @@ function Everything() {
       <div class="pt-2 text-center space-y-4">
         <h1 class="text-4xl  text-stone-300 m-1 ">｛Boyd Roberts｝</h1>
         <p className='flex justify-center italic  text-stone-300'>
-          <TextTransition springConfig={presets.gentle}>
+          <TextTransition inline={presets.gentle}>
             {TEXTS[index % TEXTS.length]}
           </TextTransition>
         </p>
