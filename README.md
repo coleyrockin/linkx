@@ -1,6 +1,6 @@
 # Design
 
-Create Link Tree type website out of react, and learn more front end tools.
+Created a Linktree type website using ReactJs, and developed more front-end knowledge.
 
 ## Technology used
 * React
