@@ -4,26 +4,33 @@ import TextTransition, { presets } from "react-text-transition";
 import { FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa';
 
 const TEXTS = [
+  '"MERN"',
   '"This documentary..."',
   '"Crypto will, no seriously..."',
   '"Space is the..."',
   '"Thats cool, but..."',
+  '"MySQL"',
   '"That wont exist in 10-50 years..."',
   '"Technology is..."',
   '"J..."',
+  '"ExpressJS"',
   '"Read this book 7 years ago..."',
   '"Dont believe in..."',
   '"Can I borrow..."',
+  '"NodeJS"',
   '"Society is so..."',
   '"One time...',
   '"If you think enough, nothing..."',
   '"Art is..."',
+  '"ReactJS"',
   '"Highly doubt it"',
   '"So this Podcast..."',
   '"Elon said...',
-  '"Saw an article about..."',
-  '"Bob Dylan..."'
-
+  '"Javascript"',
+  '"Saw an article once..."',
+  '"Bob Dylan..."',
+  '"I think..."',
+  '"MongoDD"'
 ];
 
 function Everything() {
@@ -32,7 +39,7 @@ function Everything() {
   React.useEffect(() => {
     const intervalId = setInterval(() =>
       setIndex(index => index + 1),
-      250 // ml of speed
+      240 // ml of speed
     );
     return () => clearTimeout(intervalId);
   }, []);
@@ -42,7 +49,7 @@ function Everything() {
       <div class="pt-2 text-center space-y-4">
         <h1 class="text-4xl  text-stone-300 m-1 ">｛Boyd Roberts｝</h1>
         <p className='flex justify-center italic  text-stone-300'>
-          <TextTransition inline={presets.gentle}>
+          <TextTransition className="up" direction={presets.slow}>
             {TEXTS[index % TEXTS.length]}
           </TextTransition>
         </p>
