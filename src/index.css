@@ -2,15 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: 'Lora', serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(56, 56, 56);
+:root {
+  --bg-0: #06121a;
+  --bg-1: #0b2230;
+  --bg-2: #123847;
+  --surface: rgba(9, 24, 36, 0.76);
+  --surface-border: rgba(134, 184, 206, 0.32);
+  --button-bg: rgba(14, 37, 53, 0.68);
+  --button-bg-hover: rgba(20, 52, 74, 0.9);
+  --text: #ebf6fd;
+  --muted: #9fbdcc;
+  --accent: #f59e0b;
+  --accent-ink: #ffd79e;
+  --focus-ring: rgba(245, 158, 11, 0.58);
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--text);
+  background:
+    radial-gradient(1050px circle at -10% -20%, #1c5368 0%, transparent 46%),
+    radial-gradient(860px circle at 110% 5%, #7a431f 0%, transparent 42%),
+    linear-gradient(155deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-2) 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  transition: transform 160ms var(--ease-standard), box-shadow 160ms var(--ease-standard),
+    border-color 160ms var(--ease-standard), color 160ms var(--ease-standard),
+    background-color 160ms var(--ease-standard);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@layer utilities {
+  .surface-card {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    backdrop-filter: blur(10px);
+  }
+
+  .text-muted {
+    color: var(--muted);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+.flash-line {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.flash-line div {
+  width: 100%;
+  text-align: center;
 }

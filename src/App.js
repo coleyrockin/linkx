@@ -1,13 +1,10 @@
 import Everything from "./components/Everything/Index";
 
-
 function App() {
   return (
-
-    <main className="grid h-screen place-items-center">
-      <Everything></Everything>
+    <main className="min-h-screen grid place-items-center p-4 sm:p-6">
+      <Everything />
     </main>
-
   );
 }
 
