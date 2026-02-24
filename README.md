@@ -68,9 +68,34 @@ The optimized output is generated in `build/`.
 
 ## Deployment
 
-This repo includes GitHub Pages scripts:
+### Recommended: Automatic Deploy (GitHub Actions)
+
+This repo now includes an automated GitHub Pages workflow:
+
+- Workflow file: `.github/workflows/deploy-pages.yml`
+- Trigger: every push to `main` (and manual `workflow_dispatch`)
+
+One-time GitHub setting:
+
+1. Go to your repo on GitHub.
+2. Open `Settings` -> `Pages`.
+3. Under `Build and deployment`, set `Source` to `GitHub Actions`.
+
+After that, publishing is easy:
+
+1. Merge your PR into `main`.
+2. GitHub Actions builds and deploys automatically.
+3. Site URL: [https://coleyrockin.github.io/linkx/](https://coleyrockin.github.io/linkx/)
+
+### Fallback: Manual Deploy From Local
 
 ```bash
 npm run predeploy
 npm run deploy
 ```
+
+### Quick Troubleshooting
+
+- Confirm `homepage` in `package.json` is exactly: `https://coleyrockin.github.io/linkx/`
+- If auto deploy does not run, check the `Actions` tab for workflow errors.
+- If Pages shows old content, hard refresh the browser after the deploy completes.
