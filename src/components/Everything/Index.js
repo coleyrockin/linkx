@@ -1,69 +1,79 @@
-import React from 'react';
-import Boyd from "../../assets/imgs/BoydBGRM.png"
-import TextTransition, { presets } from "react-text-transition";
-import { FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa';
+import Boyd from "../../assets/imgs/BoydBGRM.png";
+import { FaInstagram, FaLinkedin, FaGlobe } from "react-icons/fa";
 
-const TEXTS = [
-  '"MERN"',
-  '"This documentary..."',
-  '"Crypto will, no seriously..."',
-  '"Space is the..."',
-  '"Thats cool, but..."',
-  '"MySQL"',
-  '"That wont exist in 10-50 years..."',
-  '"Technology is..."',
-  '"J..."',
-  '"ExpressJS"',
-  '"Read this book 7 years ago..."',
-  '"Dont believe in..."',
-  '"Can I borrow..."',
-  '"NodeJS"',
-  '"Society is so..."',
-  '"One time..."',
-  '"If you think enough, nothing..."',
-  '"Art is..."',
-  '"ReactJS"',
-  '"Highly doubt it"',
-  '"So this Podcast..."',
-  '"Elon said..."',
-  '"Javascript"',
-  '"Saw an article once..."',
-  '"Bob Dylan..."',
-  '"I think..."',
-  '"MongoDB"'
+const LINKS = [
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/coleyrockin/",
+    tagline: "Behind the scenes",
+    icon: FaInstagram,
+    toneClass: "tone-instagram"
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/boydcroberts/",
+    tagline: "Professional world",
+    icon: FaLinkedin,
+    toneClass: "tone-linkedin"
+  },
+  {
+    name: "Portfolio",
+    href: "https://coleyrockin.github.io/react-portfolio/",
+    tagline: "Projects and builds",
+    icon: FaGlobe,
+    toneClass: "tone-portfolio"
+  }
 ];
 
 function Everything() {
-  const [index, setIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    const intervalId = setInterval(() =>
-      setIndex(index => index + 1),
-      240 // ml of speed
-    );
-    return () => clearInterval(intervalId);
-  }, []);
   return (
-    <div className="flex flex-col mx-auto md:container md:mx-auto sm:mx-8 rounded-xl p-1 m-4 bg-gray-800 w-11/12">
-      <img src={Boyd} alt="Headshot" className="w-24 h-auto rounded-full mx-auto m-1 grayscale" />
-      <div className="pt-2 text-center space-y-4">
-        <h1 className="text-4xl text-stone-300 m-1">｛Boyd Roberts｝</h1>
-        <p className='flex justify-center italic text-stone-300'>
-          <TextTransition className="up" springConfig={presets.slow}>
-            {TEXTS[index % TEXTS.length]}
-          </TextTransition>
-        </p>
-        <h2 className="text-xl text-stone-400">Full Stack | | Developer</h2>
-        <div className='md:flex flex flex-col whitespace-pre'>
-          <a className='text-stone-400 text-xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-gray-500 to-slate-500 hover:text-slate-300 focus:outline-none px-5 py-2.5 rounded-md'
-            href="https://github.com/coleyrockin" target="_blank" rel="noopener noreferrer">Github <FaGithub /></a>
-          <a className='text-stone-400 text-2xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-slate-600 to-gray-600 hover:text-slate-300 focus:outline-none px-5 py-2.5 rounded-md'
-            href="https://coleyrockin.github.io/react-portfolio/" target="_blank" rel="noopener noreferrer">Portfolio <FaGlobe /></a>
-          <a className='text-stone-400 text-3xl relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden font-medium bg-gradient-to-br from-gray-700 to-slate-700 hover:text-slate-300 focus:outline-none px-5 py-2.5 rounded-md'
-            href="https://www.linkedin.com/in/boydcroberts/" target="_blank" rel="noopener noreferrer">Linkedin <FaLinkedin /></a>
-        </div>
-      </div>
-    </div>
+    <main className="linkx-page">
+      <div className="atmosphere atmosphere-a" aria-hidden="true" />
+      <div className="atmosphere atmosphere-b" aria-hidden="true" />
+      <div className="atmosphere atmosphere-c" aria-hidden="true" />
+
+      <section className="linkx-card" aria-label="Boyd Roberts links">
+        <header className="linkx-header">
+          <div className="photo-shell">
+            <span className="photo-ring" aria-hidden="true" />
+            <img src={Boyd} alt="Portrait of Boyd Roberts" className="profile-photo" />
+          </div>
+
+          <p className="eyebrow">Boyd Roberts</p>
+          <h1>Three doors into my world.</h1>
+          <p className="subcopy">Pick a lane: social, professional, or portfolio.</p>
+        </header>
+
+        <nav className="link-stack" aria-label="Social and professional links">
+          {LINKS.map((link) => {
+            const Icon = link.icon;
+
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`link-pill ${link.toneClass}`}
+              >
+                <span className="icon-badge" aria-hidden="true">
+                  <Icon />
+                </span>
+
+                <span className="link-copy">
+                  <span className="link-name">{link.name}</span>
+                  <span className="link-tagline">{link.tagline}</span>
+                </span>
+
+                <span className="link-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            );
+          })}
+        </nav>
+      </section>
+    </main>
   );
 }
 
