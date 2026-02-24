@@ -1,36 +1,64 @@
-# Design
+# LinkX
 
-Created a Linktree type website using ReactJs, and developed more front-end knowledge.
+A professionally refactored, single-page personal link hub built with React.
 
-## Technology used
-* React
-* Javascript
-* Node packages (React Icons)
-* Google Fonts
-* Tailwind for CSS
+## Overview
 
-## Screenshot
-<img src="src/assets/imgs/LinkxSC.png" width="250">
+This project is now focused on a clean one-page experience that highlights:
 
-## Available Scripts
+- A branded profile hero with custom styling and motion
+- Three primary destinations: Instagram, LinkedIn, and Portfolio
+- Responsive layout for desktop and mobile
+- Accessibility basics (semantic structure, focus states, descriptive labels)
 
-In the project directory, you can run:
+## Refactor Highlights
 
-### `npm start`
+- Simplified app structure to a focused single-page flow
+- Rebuilt UI styling for stronger visual direction and consistency
+- Removed outdated multi-purpose content in favor of clear personal branding
+- Updated tests to match the current public link contract
+- Polished metadata/font loading in `public/index.html`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React (Create React App)
+- JavaScript
+- React Icons
+- CSS + Tailwind directives (with custom styles and design tokens)
 
+## Local Development
 
-### `npm run build`
+Install dependencies and start the dev server:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Then open:
 
+- [http://localhost:3000/linkx](http://localhost:3000/linkx)
+
+## Testing
+
+```bash
+npm test -- --watchAll=false
+```
+
+## Production Build
+
+```bash
+npm run build
+```
+
+The optimized output is generated in `build/`.
+
+## Deployment
+
+This repo includes GitHub Pages scripts:
+
+```bash
+npm run predeploy
+npm run deploy
+```
 
