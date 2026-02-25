@@ -41,7 +41,6 @@ function Everything() {
 
           <p className="eyebrow">Boyd Roberts</p>
           <h1>Three doors into my world.</h1>
-          <p className="subcopy">Pick a lane: social, professional, or portfolio.</p>
         </header>
 
         <nav className="link-stack" aria-label="Social and professional links">
