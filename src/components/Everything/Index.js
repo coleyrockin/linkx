@@ -1,5 +1,5 @@
 import Boyd from "../../assets/imgs/BoydBGRM.png";
-import { FaInstagram, FaLinkedin, FaGlobe } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaGlobe, FaGithub } from "react-icons/fa";
 
 const LINKS = [
   {
@@ -22,6 +22,13 @@ const LINKS = [
     tagline: "Projects and builds",
     icon: FaGlobe,
     toneClass: "tone-portfolio"
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/coleyrockin",
+    tagline: "Code and open source",
+    icon: FaGithub,
+    toneClass: "tone-github"
   }
 ];
 
@@ -41,6 +48,7 @@ function Everything() {
 
           <p className="eyebrow">Boyd Roberts</p>
           <h1>Three doors into my world.</h1>
+          <p className="subcopy">Product designer and engineer shaping expressive digital experiences.</p>
         </header>
 
         <nav className="link-stack" aria-label="Social and professional links">
