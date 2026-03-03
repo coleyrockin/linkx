@@ -231,6 +231,11 @@ h1 {
   background: linear-gradient(130deg, rgba(15, 118, 110, 0.12), rgba(255, 255, 255, 0.92));
 }
 
+.tone-github:hover {
+  border-color: rgba(36, 41, 47, 0.45);
+  background: linear-gradient(130deg, rgba(36, 41, 47, 0.08), rgba(255, 255, 255, 0.95));
+}
+
 .tone-instagram .icon-badge {
   background: linear-gradient(150deg, #f58529, var(--instagram) 55%, #8134af);
 }
@@ -241,6 +246,10 @@ h1 {
 
 .tone-portfolio .icon-badge {
   background: linear-gradient(150deg, #10b7aa, var(--portfolio) 70%, #0b4f4a);
+}
+
+.tone-github .icon-badge {
+  background: linear-gradient(150deg, #5b7081, #24292f 70%, #11151a);
 }
 
 @keyframes spin {
@@ -264,6 +273,27 @@ h1 {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere,
+  .photo-ring,
+  .linkx-card,
+  .link-pill {
+    animation: none !important;
+  }
+
+  .link-pill,
+  .link-arrow,
+  .linkx-card {
+    transition: none;
+    transform: none;
+  }
+
+  .link-pill:hover {
+    transform: none;
+    box-shadow: 0 8px 16px rgba(35, 66, 112, 0.12);
   }
 }
 

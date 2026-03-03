@@ -6,16 +6,21 @@ describe("App smoke test", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { name: /three doors into my world/i })).toBeInTheDocument();
+    expect(
+      screen.getByText(/product designer and engineer shaping expressive digital experiences/i)
+    ).toBeInTheDocument();
 
     const instagram = screen.getByRole("link", { name: /instagram/i });
     const portfolio = screen.getByRole("link", { name: /portfolio/i });
     const linkedin = screen.getByRole("link", { name: /linkedin/i });
+    const github = screen.getByRole("link", { name: /github/i });
 
     expect(instagram).toHaveAttribute("href", "https://www.instagram.com/coleyrockin/");
     expect(portfolio).toHaveAttribute("href", "https://coleyrockin.github.io/react-portfolio/");
     expect(linkedin).toHaveAttribute("href", "https://www.linkedin.com/in/boydcroberts/");
+    expect(github).toHaveAttribute("href", "https://github.com/coleyrockin");
 
-    [instagram, portfolio, linkedin].forEach((link) => {
+    [instagram, portfolio, linkedin, github].forEach((link) => {
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
