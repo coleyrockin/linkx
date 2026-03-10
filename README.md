@@ -1,56 +1,68 @@
 # LinkX
 
-A professionally refactored, single-page personal link hub built with React.
+> A clean, animated personal link hub built with React — one page, four destinations.
+
+[![Deploy to GitHub Pages](https://github.com/coleyrockin/linkx/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/coleyrockin/linkx/actions/workflows/deploy-pages.yml)
+
+**Live site:** [https://coleyrockin.github.io/linkx/](https://coleyrockin.github.io/linkx/)
+
+---
 
 ## Overview
 
-This project is now focused on a clean one-page experience that highlights:
+LinkX is a polished single-page personal link hub that puts four key destinations front and center: Instagram, LinkedIn, Portfolio, and GitHub. It features a branded profile hero with custom motion design and responsive layout for desktop and mobile.
 
-- A branded profile hero with custom styling and motion
-- Three primary destinations: Instagram, LinkedIn, and Portfolio
-- Responsive layout for desktop and mobile
-- Accessibility basics (semantic structure, focus states, descriptive labels)
+![LinkX screenshot](src/assets/imgs/LinkxRefactor.png)
 
-## Refactor Highlights
+---
 
-- Simplified app structure to a focused single-page flow
-- Rebuilt UI styling for stronger visual direction and consistency
-- Removed outdated multi-purpose content in favor of clear personal branding
-- Updated tests to match the current public link contract
-- Polished metadata/font loading in `public/index.html`
+## Features
 
-## Screenshot (Refactored UI)
+- **Profile hero** — animated spinning gradient ring around a circular profile photo
+- **Four outbound links** — Instagram, LinkedIn, Portfolio, GitHub — each with a branded icon and hover tint
+- **Atmospheric background** — layered blurred blobs that drift for a subtle depth effect
+- **Card entrance animation** — the link card fades and scales in on load
+- **Fluid typography** — uses `clamp()` for sizes that adapt smoothly across screen widths
+- **Accessibility** — semantic HTML, ARIA labels, visible focus indicators, and `prefers-reduced-motion` support
+- **Responsive** — works cleanly on phones, tablets, and desktops
 
-![LinkX refactor screenshot](src/assets/imgs/LinkxRefactor.png)
-
-## New Tech Added In The Refactor
-
-- `CSS custom properties` for a reusable design-token system (color, spacing, easing, emphasis).
-- `Advanced CSS motion` using keyframes and staged transitions for atmosphere, card entrance, and interactive links.
-- `Typography refresh` with `Syne` + `Space Grotesk` for a stronger visual identity.
-- `Structured one-page component architecture` with focused sections (hero, link stack, visual layers).
-- `Modernized document metadata wiring` in `public/index.html` (correct `site.webmanifest` path and aligned font preconnect/load tags).
-- `Contract-level UI test coverage` in `src/App.test.js` verifying headline and outbound link behavior.
+---
 
 ## Tech Stack
 
-- React (Create React App)
-- JavaScript
-- React Icons
-- CSS + Tailwind directives (with custom styles and design tokens)
+| Layer | Technology |
+|-------|-----------|
+| Runtime | React 18 (Create React App) |
+| Language | JavaScript (ES6+) |
+| Styling | CSS3 with custom properties + Tailwind CSS |
+| Icons | React Icons (Font Awesome) |
+| Animations | CSS keyframes & transitions |
+| Fonts | Google Fonts — Syne & Space Grotesk |
+| Testing | Jest + React Testing Library |
+| Build | Create React App (Webpack) |
+| Deployment | GitHub Pages + GitHub Actions |
 
-## Local Development
+---
 
-Install dependencies and start the dev server:
+## Installation
 
 ```bash
+git clone https://github.com/coleyrockin/linkx.git
+cd linkx
 npm install
+```
+
+---
+
+## Running Locally
+
+```bash
 npm start
 ```
 
-Then open:
+Open [http://localhost:3000/linkx](http://localhost:3000/linkx) in your browser.
 
-- [http://localhost:3000/linkx](http://localhost:3000/linkx)
+---
 
 ## Testing
 
@@ -58,44 +70,68 @@ Then open:
 npm test -- --watchAll=false
 ```
 
+---
+
 ## Production Build
 
 ```bash
 npm run build
 ```
 
-The optimized output is generated in `build/`.
+Optimized output is written to `build/`.
+
+---
 
 ## Deployment
 
-### Recommended: Automatic Deploy (GitHub Actions)
+### Automatic (GitHub Actions)
 
-This repo now includes an automated GitHub Pages workflow:
+Every push to `main` triggers the deploy workflow at `.github/workflows/deploy-pages.yml`.
 
-- Workflow file: `.github/workflows/deploy-pages.yml`
-- Trigger: every push to `main` (and manual `workflow_dispatch`)
+**One-time GitHub setup:**
 
-One-time GitHub setting:
+1. Go to **Settings → Pages** in this repository.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 
-1. Go to your repo on GitHub.
-2. Open `Settings` -> `Pages`.
-3. Under `Build and deployment`, set `Source` to `GitHub Actions`.
+After that, merging to `main` publishes the site automatically at:
+[https://coleyrockin.github.io/linkx/](https://coleyrockin.github.io/linkx/)
 
-After that, publishing is easy:
-
-1. Merge your PR into `main`.
-2. GitHub Actions builds and deploys automatically.
-3. Site URL: [https://coleyrockin.github.io/linkx/](https://coleyrockin.github.io/linkx/)
-
-### Fallback: Manual Deploy From Local
+### Manual (local)
 
 ```bash
-npm run predeploy
 npm run deploy
 ```
 
-### Quick Troubleshooting
+---
 
-- Confirm `homepage` in `package.json` is exactly: `https://coleyrockin.github.io/linkx/`
-- If auto deploy does not run, check the `Actions` tab for workflow errors.
-- If Pages shows old content, hard refresh the browser after the deploy completes.
+## Project Structure
+
+```
+linkx/
+├── public/              # Static HTML, favicons, PWA manifest
+├── src/
+│   ├── assets/
+│   │   └── imgs/        # Profile photo and screenshots
+│   ├── components/
+│   │   └── LinkHub/
+│   │       └── LinkHub.js   # Main page component
+│   ├── App.js           # Root component
+│   ├── App.test.js      # Smoke tests
+│   ├── index.css        # Global styles and design tokens
+│   └── index.js         # React entry point
+├── .github/
+│   └── workflows/
+│       └── deploy-pages.yml
+├── tailwind.config.js
+├── postcss.config.js
+├── CHANGELOG.md
+└── ROADMAP.md
+```
+
+---
+
+## Troubleshooting
+
+- Confirm `homepage` in `package.json` is exactly `https://coleyrockin.github.io/linkx/`
+- If auto-deploy does not run, check the **Actions** tab for workflow errors
+- If Pages shows old content, hard-refresh after the deploy completes

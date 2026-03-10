@@ -1,7 +1,7 @@
-import Everything from "./components/Everything/Index";
+import LinkHub from "./components/LinkHub/LinkHub";
 
 function App() {
-  return <Everything />;
+  return <LinkHub />;
 }
 
 export default App;

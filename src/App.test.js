@@ -5,7 +5,7 @@ describe("App smoke test", () => {
   test("renders identity and outbound links", () => {
     render(<App />);
 
-    expect(screen.getByRole("heading", { name: /three doors into my world/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /four doors into my world/i })).toBeInTheDocument();
     expect(
       screen.getByText(/product designer and engineer shaping expressive digital experiences/i)
     ).toBeInTheDocument();

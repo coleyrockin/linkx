@@ -32,7 +32,7 @@ const LINKS = [
   }
 ];
 
-function Everything() {
+function LinkHub() {
   return (
     <main className="linkx-page">
       <div className="atmosphere atmosphere-a" aria-hidden="true" />
@@ -47,7 +47,7 @@ function Everything() {
           </div>
 
           <p className="eyebrow">Boyd Roberts</p>
-          <h1>Three doors into my world.</h1>
+          <h1>Four doors into my world.</h1>
           <p className="subcopy">Product designer and engineer shaping expressive digital experiences.</p>
         </header>
 
@@ -84,4 +84,4 @@ function Everything() {
   );
 }
 
-export default Everything;
+export default LinkHub;
