@@ -1,5 +1,5 @@
-import Boyd from "../../assets/imgs/BoydBGRM.png";
-import { FaInstagram, FaLinkedin, FaGlobe, FaGithub } from "react-icons/fa";
+import ProfilePhoto from "../../assets/imgs/boyd26.jpeg";
+import { FaInstagram, FaLinkedin, FaBriefcase, FaGithub } from "react-icons/fa";
 
 const LINKS = [
   {
@@ -20,7 +20,7 @@ const LINKS = [
     name: "Portfolio",
     href: "https://coleyrockin.github.io/react-portfolio/",
     tagline: "Projects and builds",
-    icon: FaGlobe,
+    icon: FaBriefcase,
     toneClass: "tone-portfolio"
   },
   {
@@ -35,24 +35,43 @@ const LINKS = [
 function Everything() {
   return (
     <main className="linkx-page">
+      <div className="grid-lines" aria-hidden="true" />
       <div className="atmosphere atmosphere-a" aria-hidden="true" />
       <div className="atmosphere atmosphere-b" aria-hidden="true" />
       <div className="atmosphere atmosphere-c" aria-hidden="true" />
 
       <section className="linkx-card" aria-label="Boyd Roberts links">
-        <header className="linkx-header">
-          <div className="photo-shell">
-            <span className="photo-ring" aria-hidden="true" />
-            <img src={Boyd} alt="Portrait of Boyd Roberts" className="profile-photo" />
-          </div>
+        <div className="hero-grid">
+          <header className="linkx-header">
+            <p className="eyebrow">Boyd Roberts</p>
+            <h1>Doors into my world</h1>
+            <p className="subcopy">
+              A way to jump into the work, the network, and the projects I am building.
+            </p>
+            <div className="signal-row" aria-label="Brand themes">
+              <span className="signal-pill">Creative</span>
+              <span className="signal-pill">Professional</span>
+              <span className="signal-pill">Builder</span>
+            </div>
+          </header>
 
-          <p className="eyebrow">Boyd Roberts</p>
-          <h1>Three doors into my world.</h1>
-          <p className="subcopy">Product designer and engineer shaping expressive digital experiences.</p>
-        </header>
+          <aside className="portrait-panel" aria-label="Boyd Roberts portrait">
+            <div className="portrait-glow portrait-glow-a" aria-hidden="true" />
+            <div className="portrait-glow portrait-glow-b" aria-hidden="true" />
+            <div className="photo-shell">
+              <span className="photo-ring" aria-hidden="true" />
+              <span className="photo-backdrop" aria-hidden="true" />
+              <img
+                src={ProfilePhoto}
+                alt="Portrait of Boyd Roberts"
+                className="profile-photo"
+              />
+            </div>
+          </aside>
+        </div>
 
         <nav className="link-stack" aria-label="Social and professional links">
-          {LINKS.map((link) => {
+          {LINKS.map((link, index) => {
             const Icon = link.icon;
 
             return (
@@ -63,6 +82,10 @@ function Everything() {
                 rel="noopener noreferrer"
                 className={`link-pill ${link.toneClass}`}
               >
+                <span className="link-index" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
                 <span className="icon-badge" aria-hidden="true">
                   <Icon />
                 </span>

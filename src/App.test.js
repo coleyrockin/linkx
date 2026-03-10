@@ -5,10 +5,11 @@ describe("App smoke test", () => {
   test("renders identity and outbound links", () => {
     render(<App />);
 
-    expect(screen.getByRole("heading", { name: /three doors into my world/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /doors into my world/i })).toBeInTheDocument();
     expect(
-      screen.getByText(/product designer and engineer shaping expressive digital experiences/i)
+      screen.getByText(/a way to jump into the work, the network, and the projects i am building\./i)
     ).toBeInTheDocument();
+    expect(screen.queryByText(/built to feel personal, sharp, and easy to explore\./i)).not.toBeInTheDocument();
 
     const instagram = screen.getByRole("link", { name: /instagram/i });
     const portfolio = screen.getByRole("link", { name: /portfolio/i });
