@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/linkx/static/css/main.03a8bbaf.css",
-    "main.js": "/linkx/static/js/main.4f1f90cb.js",
-    "static/js/787.7a89f5dd.chunk.js": "/linkx/static/js/787.7a89f5dd.chunk.js",
-    "static/media/BoydBGRM.png": "/linkx/static/media/BoydBGRM.3c992e46be3b862d8222.png",
+    "main.css": "/linkx/static/css/main.d6ed21a6.css",
+    "main.js": "/linkx/static/js/main.7c7be576.js",
+    "static/js/787.135bdadb.chunk.js": "/linkx/static/js/787.135bdadb.chunk.js",
+    "static/media/boyd26.jpeg": "/linkx/static/media/boyd26.240d1659ef74b101d39a.jpeg",
     "index.html": "/linkx/index.html",
-    "main.03a8bbaf.css.map": "/linkx/static/css/main.03a8bbaf.css.map",
-    "main.4f1f90cb.js.map": "/linkx/static/js/main.4f1f90cb.js.map",
-    "787.7a89f5dd.chunk.js.map": "/linkx/static/js/787.7a89f5dd.chunk.js.map"
+    "main.d6ed21a6.css.map": "/linkx/static/css/main.d6ed21a6.css.map",
+    "main.7c7be576.js.map": "/linkx/static/js/main.7c7be576.js.map",
+    "787.135bdadb.chunk.js.map": "/linkx/static/js/787.135bdadb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.03a8bbaf.css",
-    "static/js/main.4f1f90cb.js"
+    "static/css/main.d6ed21a6.css",
+    "static/js/main.7c7be576.js"
   ]
 }
