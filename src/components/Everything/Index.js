@@ -1,5 +1,5 @@
 import ProfilePhoto from "../../assets/imgs/boyd26.jpeg";
-import { FaInstagram, FaLinkedin, FaBriefcase, FaGithub } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaGithub, FaGlobeAmericas } from "react-icons/fa";
 
 const LINKS = [
   {
@@ -20,7 +20,7 @@ const LINKS = [
     name: "Portfolio",
     href: "https://coleyrockin.github.io/react-portfolio/",
     tagline: "Projects and builds",
-    icon: FaBriefcase,
+    icon: FaGlobeAmericas,
     toneClass: "tone-portfolio"
   },
   {
