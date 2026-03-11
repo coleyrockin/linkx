@@ -7,7 +7,7 @@ describe("App smoke test", () => {
 
     expect(screen.getByRole("heading", { name: /doors into my world/i })).toBeInTheDocument();
     expect(
-      screen.getByText(/a way to jump into the work, the network, and the projects i am building\./i)
+      screen.getByText(/a tiny control panel for my corner of the internet\./i)
     ).toBeInTheDocument();
     expect(screen.queryByText(/built to feel personal, sharp, and easy to explore\./i)).not.toBeInTheDocument();
 
