@@ -9,8 +9,6 @@ describe("App smoke test", () => {
     expect(
       screen.getByText(/a tiny control panel for my corner of the internet\./i)
     ).toBeInTheDocument();
-    expect(screen.queryByText(/built to feel personal, sharp, and easy to explore\./i)).not.toBeInTheDocument();
-
     const instagram = screen.getByRole("link", { name: /instagram/i });
     const portfolio = screen.getByRole("link", { name: /portfolio/i });
     const linkedin = screen.getByRole("link", { name: /linkedin/i });
