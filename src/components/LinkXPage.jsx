@@ -115,8 +115,11 @@ function LinkXPage() {
       <div className="lx-grain" aria-hidden="true" />
 
       <main className="lx-content">
+        <div className="lx-stage" aria-hidden="true" />
+
         <div className="lx-identity">
           <div className="lx-photo-wrap">
+            <div className="lx-photo-halo" aria-hidden="true" />
             <div className="lx-photo-ring" aria-hidden="true" />
             <img
               src={ProfilePhoto}
@@ -143,6 +146,7 @@ function LinkXPage() {
                 className={`lx-link ${link.toneClass}`}
                 style={{ "--i": i }}
               >
+                <span className="lx-link-glow" aria-hidden="true" />
                 <span className="lx-link-icon" aria-hidden="true">
                   <Icon />
                 </span>
