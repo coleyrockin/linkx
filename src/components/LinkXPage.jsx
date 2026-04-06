@@ -1,77 +1,138 @@
-import { useRef, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
 import ProfilePhoto from "../assets/imgs/boyd-striped.jpeg";
 import LINKS from "../data/links";
-import usePointerEffects from "../hooks/usePointerEffects";
 
 function LinkXPage() {
+  const canvasRef = useRef(null);
   const pageRef = useRef(null);
-  const portraitRef = useRef(null);
+  const [revealed, setRevealed] = useState(false);
 
-  usePointerEffects(pageRef, portraitRef);
-
-  const handlePillMove = useCallback((e) => {
-    const pill = e.currentTarget;
-    const r = pill.getBoundingClientRect();
-    const ox = (e.clientX - (r.left + r.width / 2)) / r.width;
-    const oy = (e.clientY - (r.top + r.height / 2)) / r.height;
-    pill.style.setProperty("--mag-x", `${(ox * 4).toFixed(2)}px`);
-    pill.style.setProperty("--mag-y", `${(oy * 4).toFixed(2)}px`);
+  useEffect(() => {
+    const timer = setTimeout(() => setRevealed(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
-  const handlePillLeave = useCallback((e) => {
-    const pill = e.currentTarget;
-    pill.style.setProperty("--mag-x", "0px");
-    pill.style.setProperty("--mag-y", "0px");
+  // Particle field
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let raf;
+    let mouse = { x: -1000, y: -1000 };
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const isCoarse =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(pointer: coarse)").matches;
+
+    const PARTICLE_COUNT = isCoarse ? 40 : 80;
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 2 + 0.5,
+      opacity: Math.random() * 0.5 + 0.1,
+    }));
+
+    const onMove = (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    if (!isCoarse) window.addEventListener("pointermove", onMove);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const p of particles) {
+        // Gentle cursor repulsion
+        if (!isCoarse) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            const force = (150 - dist) / 150;
+            p.vx += (dx / dist) * force * 0.15;
+            p.vy += (dy / dist) * force * 0.15;
+          }
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.995;
+        p.vy *= 0.995;
+
+        // Wrap edges
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+        ctx.fill();
+      }
+
+      // Draw connection lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.06 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      if (!isCoarse) window.removeEventListener("pointermove", onMove);
+    };
   }, []);
 
   return (
-    <main className="linkx-page" ref={pageRef}>
-      <div className="grid-lines" aria-hidden="true" />
-      <div className="cursor-aura" aria-hidden="true" />
-      <div className="atmosphere atmosphere-a" aria-hidden="true" />
-      <div className="atmosphere atmosphere-b" aria-hidden="true" />
-      <div className="atmosphere atmosphere-c" aria-hidden="true" />
+    <div className={`lx ${revealed ? "lx--revealed" : ""}`} ref={pageRef}>
+      <canvas className="lx-particles" ref={canvasRef} aria-hidden="true" />
+      <div className="lx-aurora" aria-hidden="true" />
+      <div className="lx-grain" aria-hidden="true" />
 
-      <section className="linkx-card" aria-label="Boyd Roberts links">
-        <div className="card-border-glow" aria-hidden="true" />
+      <main className="lx-content">
+        <div className="lx-identity">
+          <div className="lx-photo-wrap">
+            <div className="lx-photo-ring" aria-hidden="true" />
+            <img
+              src={ProfilePhoto}
+              alt="Boyd Roberts"
+              className="lx-photo"
+            />
+          </div>
 
-        <div className="hero-grid">
-          <header className="linkx-header">
-            <p className="eyebrow">Boyd Roberts</p>
-            <h1 className="hero-heading">
-              Doors into my world
-            </h1>
-            <p className="subcopy">
-              A tiny control panel for my corner of the internet.
-            </p>
-            <div className="signal-row" aria-label="Brand themes">
-              <span className="signal-pill">Creative</span>
-              <span className="signal-pill">Professional</span>
-              <span className="signal-pill">Builder</span>
-            </div>
-          </header>
-
-          <aside
-            className="portrait-panel"
-            aria-label="Boyd Roberts portrait"
-            ref={portraitRef}
-          >
-            <div className="portrait-glow portrait-glow-a" aria-hidden="true" />
-            <div className="portrait-glow portrait-glow-b" aria-hidden="true" />
-            <div className="photo-shell">
-              <span className="photo-ring" aria-hidden="true" />
-              <span className="photo-backdrop" aria-hidden="true" />
-              <img
-                src={ProfilePhoto}
-                alt="Portrait of Boyd Roberts"
-                className="profile-photo"
-              />
-            </div>
-          </aside>
+          <div className="lx-text">
+            <h1 className="lx-name">Boyd Roberts</h1>
+            <p className="lx-tagline">Creative. Builder. Professional.</p>
+          </div>
         </div>
 
-        <nav className="link-stack" aria-label="Social and professional links">
-          {LINKS.map((link, index) => {
+        <nav className="lx-links" aria-label="Links">
+          {LINKS.map((link, i) => {
             const Icon = link.icon;
             return (
               <a
@@ -79,29 +140,27 @@ function LinkXPage() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`link-pill ${link.toneClass}`}
-                style={{ "--stagger-delay": `${280 + index * 110}ms` }}
-                onPointerMove={handlePillMove}
-                onPointerLeave={handlePillLeave}
+                className={`lx-link ${link.toneClass}`}
+                style={{ "--i": i }}
               >
-                <span className="icon-badge" aria-hidden="true">
+                <span className="lx-link-icon" aria-hidden="true">
                   <Icon />
                 </span>
-                <span className="link-copy">
-                  <span className="link-name">{link.name}</span>
-                  <span className="link-tagline">{link.tagline}</span>
+                <span className="lx-link-body">
+                  <span className="lx-link-name">{link.name}</span>
+                  <span className="lx-link-sub">{link.tagline}</span>
                 </span>
-                <span className="link-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
+                <span className="lx-link-go" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7v10" />
                   </svg>
                 </span>
               </a>
             );
           })}
         </nav>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
 

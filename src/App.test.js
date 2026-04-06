@@ -1,15 +1,28 @@
 import { render, screen } from "@testing-library/react";
 import LinkXPage from "./components/LinkXPage";
 
+// Mock canvas for particle system
+beforeAll(() => {
+  HTMLCanvasElement.prototype.getContext = () => ({
+    clearRect: () => {},
+    beginPath: () => {},
+    arc: () => {},
+    fill: () => {},
+    moveTo: () => {},
+    lineTo: () => {},
+    stroke: () => {},
+    fillStyle: "",
+    strokeStyle: "",
+    lineWidth: 1,
+  });
+});
+
 describe("LinkX smoke test", () => {
   test("renders identity and outbound links", () => {
     render(<LinkXPage />);
 
     expect(
-      screen.getByRole("heading", { name: /doors into my world/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/a tiny control panel for my corner of the internet\./i)
+      screen.getByRole("heading", { name: /boyd roberts/i })
     ).toBeInTheDocument();
 
     const instagram = screen.getByRole("link", { name: /instagram/i });
