@@ -35,13 +35,34 @@ body {
   min-height: 100vh;
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 18% 18%, rgba(255, 138, 91, 0.22) 0%, rgba(255, 138, 91, 0) 34%),
-    radial-gradient(circle at 82% 14%, rgba(86, 182, 255, 0.24) 0%, rgba(86, 182, 255, 0) 32%),
-    radial-gradient(circle at 50% 88%, rgba(98, 210, 176, 0.18) 0%, rgba(98, 210, 176, 0) 38%),
-    linear-gradient(135deg, #050a14 0%, #0c1830 52%, #09111f 100%);
+  background: linear-gradient(135deg, #050a14 0%, #0c1830 52%, #09111f 100%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Aurora layers — each drifts independently */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.55;
+}
+
+body::before {
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 30%, rgba(255, 138, 91, 0.35), transparent),
+    radial-gradient(ellipse 50% 50% at 75% 20%, rgba(86, 182, 255, 0.3), transparent);
+  animation: aurora-a 24s ease-in-out infinite alternate;
+}
+
+body::after {
+  background:
+    radial-gradient(ellipse 55% 45% at 40% 75%, rgba(98, 210, 176, 0.28), transparent),
+    radial-gradient(ellipse 45% 55% at 80% 65%, rgba(183, 148, 246, 0.25), transparent);
+  animation: aurora-b 32s ease-in-out infinite alternate;
 }
 
 #root {
@@ -106,37 +127,41 @@ body {
 
 .atmosphere {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(18px);
+  filter: blur(24px);
   opacity: 0.7;
-  animation: drift 48s ease-in-out infinite alternate;
+  animation:
+    drift 48s ease-in-out infinite alternate,
+    morph 18s ease-in-out infinite;
   z-index: -1;
 }
 
 .atmosphere-a {
-  width: 340px;
+  width: 380px;
   aspect-ratio: 1;
   background: rgba(255, 138, 91, 0.25);
   left: -60px;
   top: -80px;
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
 }
 
 .atmosphere-b {
-  width: 440px;
+  width: 480px;
   aspect-ratio: 1;
   background: rgba(86, 182, 255, 0.24);
   right: -160px;
   top: 8%;
-  animation-duration: 56s;
+  animation-duration: 56s, 22s;
+  border-radius: 45% 55% 50% 50% / 55% 45% 55% 45%;
 }
 
 .atmosphere-c {
-  width: 420px;
+  width: 450px;
   aspect-ratio: 1;
   background: rgba(183, 148, 246, 0.18);
   left: 4%;
   bottom: -220px;
-  animation-duration: 62s;
+  animation-duration: 62s, 16s;
+  border-radius: 50% 50% 45% 55% / 40% 60% 50% 50%;
 }
 
 /* ── Card ───────────────────────────────────────────── */
@@ -188,9 +213,10 @@ body {
   mask-composite: exclude;
   -webkit-mask-composite: xor;
   padding: 1px;
-  opacity: 0.6;
   pointer-events: none;
-  animation: spin-border 8s linear infinite;
+  animation:
+    spin-border 8s linear infinite,
+    breathe-border 5s ease-in-out infinite;
 }
 
 /* ── Hero grid ──────────────────────────────────────── */
@@ -225,10 +251,12 @@ body {
   line-height: 0.96;
   letter-spacing: -0.05em;
   max-width: 9ch;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 40%, var(--portfolio) 100%);
+  background: linear-gradient(90deg, var(--gold), var(--coral), var(--portfolio), var(--gold));
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: flow-gradient 6s ease-in-out infinite;
 }
 
 .subcopy {
@@ -363,6 +391,7 @@ body {
     -24px
   );
   transition: transform 320ms var(--ease-out), opacity 320ms var(--ease-out);
+  animation: ring-pulse 5s ease-in-out infinite;
 }
 
 .photo-backdrop {
@@ -448,16 +477,17 @@ body {
   animation-delay: var(--stagger-delay, 0ms);
 }
 
-/* Sliding highlight bar */
+/* Flowing gradient wash */
 .link-pill::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--tone), transparent 80%);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 360ms var(--ease-out);
+  background: linear-gradient(90deg, transparent, var(--tone), transparent);
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  opacity: 0;
+  transition: opacity 360ms var(--ease-out), background-position 600ms var(--ease-out);
   pointer-events: none;
   z-index: -1;
 }
@@ -468,7 +498,8 @@ body {
 }
 
 .link-pill:hover::after {
-  transform: scaleX(1);
+  opacity: 1;
+  background-position: 100% 0;
 }
 
 .link-pill:focus-visible {
@@ -540,6 +571,26 @@ body {
 
 /* ── Keyframes ──────────────────────────────────────── */
 
+@keyframes aurora-a {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  50%  { transform: translate(8%, -6%) rotate(8deg); }
+  100% { transform: translate(-4%, 5%) rotate(-4deg); }
+}
+
+@keyframes aurora-b {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  50%  { transform: translate(-6%, 8%) rotate(-6deg); }
+  100% { transform: translate(5%, -3%) rotate(5deg); }
+}
+
+@keyframes morph {
+  0%   { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+  25%  { border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%; }
+  50%  { border-radius: 50% 50% 60% 40% / 40% 55% 45% 55%; }
+  75%  { border-radius: 55% 45% 45% 55% / 60% 40% 55% 45%; }
+  100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+}
+
 @keyframes drift {
   to { transform: translate3d(18px, -14px, 0) scale(1.06); }
 }
@@ -558,6 +609,21 @@ body {
   to { --border-angle: 360deg; }
 }
 
+@keyframes breathe-border {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.75; }
+}
+
+@keyframes ring-pulse {
+  0%, 100% { opacity: 0.5; transform: translate3d(calc(var(--portrait-shift-x) * 0.4), calc(var(--portrait-shift-y) * 0.4), -24px) scale(1); }
+  50%      { opacity: 0.7; transform: translate3d(calc(var(--portrait-shift-x) * 0.4), calc(var(--portrait-shift-y) * 0.4), -24px) scale(1.08); }
+}
+
+@keyframes flow-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
 @property --border-angle {
   syntax: "<angle>";
   initial-value: 0deg;
@@ -571,7 +637,13 @@ body {
   .photo-ring,
   .linkx-card,
   .link-pill,
-  .card-border-glow {
+  .card-border-glow,
+  .hero-heading {
+    animation: none !important;
+  }
+
+  body::before,
+  body::after {
     animation: none !important;
   }
 
