@@ -12,7 +12,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "lint": "eslint src --max-warnings 0"
+    "lint": "eslint src --max-warnings 0",
+    "og": "mkdir -p /tmp/og && qlmanage -t -s 1200 -o /tmp/og scripts/og.svg && sips -c 630 1200 /tmp/og/og.svg.png --out public/og-image.jpg -s format jpeg -s formatOptions 88",
+    "screenshot": "node scripts/screenshot.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

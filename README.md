@@ -8,7 +8,7 @@ A hand-built personal link hub in React — a single-screen "constellation" that
 
 **[Live site →](https://coleyrockin.github.io/linkx/)**
 
-![LinkX](src/assets/imgs/LinkxRefactor.png)
+![LinkX](src/assets/imgs/LinkxRefactor.jpg)
 
 ## Why this exists
 
@@ -23,7 +23,7 @@ Most link-in-bio pages are rented real estate on someone else's platform. LinkX 
 - **CSS custom properties as an animation API** — pointer position and parallax tilt are written to `--pointer-x`, `--portrait-rotate-y`, etc., keeping the JS → CSS handoff cheap and declarative.
 - **Accessible by default** — skip-link, semantic landmarks, labeled `nav`, `aria-hidden` on decorative layers, visible focus rings, alt text, arrow-key navigation across the link stack, and `rel="noopener noreferrer"` on outbound links. Enforced in CI by axe-core.
 - **Data-driven content** — the link stack and the "Now" section are plain JSON ([`links.json`](src/data/links.json), [`now.json`](src/data/now.json)), decoupled from the presentation layer.
-- **Real CI** — every push runs unit tests, an end-to-end Playwright smoke test (including an axe a11y audit on the built site), and auto-deploys to GitHub Pages on green.
+- **Real CI** — every push runs unit tests before deploy; a parallel audit workflow runs a Playwright end-to-end smoke test and an axe a11y audit on the built site. Unit tests gate deploys; the audit reports independently.
 
 ## Tech stack
 
@@ -33,6 +33,12 @@ Most link-in-bio pages are rented real estate on someone else's platform. LinkX 
 - **Vitest** + **@testing-library/react** for unit tests
 - **Playwright** + **@axe-core/playwright** for end-to-end and a11y tests
 - **GitHub Actions** → **GitHub Pages** for deploys
+
+## Keyboard shortcuts
+
+- `Tab` — cycles through the skip-link, then the link stack.
+- `↑` / `↓` — move focus between links while the stack is focused.
+- `Enter` — opens the focused link in a new tab.
 
 ## Local development
 

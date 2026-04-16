@@ -627,14 +627,6 @@ body {
   opacity: 0.7;
 }
 
-/* ── View-transition hint on link hover ────────────── */
-
-@supports (transition-behavior: allow-discrete) {
-  .lx-link {
-    view-transition-name: none;
-  }
-}
-
 /* ── Light theme (prefers-color-scheme) ────────────── */
 
 @media (prefers-color-scheme: light) {

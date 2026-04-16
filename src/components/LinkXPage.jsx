@@ -66,7 +66,9 @@ function LinkXPage() {
             return (
               <a
                 key={link.id}
-                ref={(el) => (linkRefs.current[i] = el)}
+                ref={(el) => {
+                  linkRefs.current[i] = el;
+                }}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
