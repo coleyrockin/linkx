@@ -31,6 +31,14 @@ function LinkXPage() {
       typeof window.matchMedia === "function" &&
       window.matchMedia("(pointer: coarse)").matches;
 
+    const prefersReducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      return undefined;
+    }
+
     const PARTICLE_COUNT = isCoarse ? 40 : 80;
     const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: Math.random() * canvas.width,
