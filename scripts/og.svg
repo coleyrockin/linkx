@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#1c2a4a"/>
+      <stop offset="55%" stop-color="#0c1428"/>
+      <stop offset="100%" stop-color="#05080f"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8ab4ff"/>
+      <stop offset="100%" stop-color="#c58bff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="#ffffff" opacity="0.18">
+    <circle cx="120" cy="110" r="1.6"/>
+    <circle cx="260" cy="70" r="1.2"/>
+    <circle cx="380" cy="160" r="2"/>
+    <circle cx="500" cy="90" r="1.2"/>
+    <circle cx="650" cy="130" r="1.8"/>
+    <circle cx="820" cy="80" r="1.3"/>
+    <circle cx="960" cy="140" r="2"/>
+    <circle cx="1100" cy="90" r="1.4"/>
+    <circle cx="160" cy="480" r="1.6"/>
+    <circle cx="320" cy="540" r="1.3"/>
+    <circle cx="520" cy="500" r="2"/>
+    <circle cx="720" cy="560" r="1.4"/>
+    <circle cx="900" cy="490" r="1.8"/>
+    <circle cx="1060" cy="540" r="1.4"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.08">
+    <line x1="120" y1="110" x2="260" y2="70"/>
+    <line x1="260" y1="70" x2="380" y2="160"/>
+    <line x1="380" y1="160" x2="500" y2="90"/>
+    <line x1="500" y1="90" x2="650" y2="130"/>
+    <line x1="820" y1="80" x2="960" y2="140"/>
+    <line x1="160" y1="480" x2="320" y2="540"/>
+    <line x1="320" y1="540" x2="520" y2="500"/>
+    <line x1="720" y1="560" x2="900" y2="490"/>
+  </g>
+  <text x="80" y="260" font-family="Syne, 'Space Grotesk', system-ui, sans-serif" font-weight="800" font-size="120" fill="url(#accent)">LinkX</text>
+  <text x="82" y="340" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="500" font-size="36" fill="#eef1ff" opacity="0.95">A single-screen constellation of my work,</text>
+  <text x="82" y="388" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="500" font-size="36" fill="#eef1ff" opacity="0.95">writing, and socials.</text>
+  <g transform="translate(82, 520)">
+    <rect x="0" y="0" width="180" height="46" rx="23" fill="#ffffff" opacity="0.08"/>
+    <text x="90" y="30" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="500" font-size="20" fill="#ffffff">Boyd Roberts</text>
+    <rect x="200" y="0" width="160" height="46" rx="23" fill="#ffffff" opacity="0.08"/>
+    <text x="280" y="30" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="500" font-size="20" fill="#ffffff">React · Canvas</text>
+  </g>
+  <circle cx="990" cy="315" r="170" fill="none" stroke="url(#accent)" stroke-width="2" opacity="0.6"/>
+  <circle cx="990" cy="315" r="130" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.18"/>
+  <circle cx="990" cy="315" r="90" fill="#0b1429" stroke="#ffffff" stroke-width="1" opacity="0.9"/>
+  <text x="990" y="325" text-anchor="middle" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="72" fill="url(#accent)">BR</text>
+</svg>

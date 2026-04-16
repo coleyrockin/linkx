@@ -1,0 +1,17 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  base: "/linkx/",
+  plugins: [react()],
+  build: {
+    outDir: "build",
+    sourcemap: false,
+  },
+  test: {
+    environment: "jsdom",
+    setupFiles: "./src/setupTests.js",
+    globals: true,
+    exclude: ["node_modules", "tests/e2e/**", "build"],
+  },
+});

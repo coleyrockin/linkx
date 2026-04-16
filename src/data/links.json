@@ -1,0 +1,37 @@
+[
+  {
+    "id": "instagram",
+    "name": "Instagram",
+    "href": "https://www.instagram.com/coleyrockin/",
+    "tagline": "Behind the scenes",
+    "toneClass": "tone-instagram"
+  },
+  {
+    "id": "linkedin",
+    "name": "LinkedIn",
+    "href": "https://www.linkedin.com/in/boydcroberts/",
+    "tagline": "Professional world",
+    "toneClass": "tone-linkedin"
+  },
+  {
+    "id": "portfolio",
+    "name": "Portfolio",
+    "href": "https://coleyrockin.github.io/react-portfolio/",
+    "tagline": "Projects and builds",
+    "toneClass": "tone-portfolio"
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "href": "https://github.com/coleyrockin",
+    "tagline": "Code and open source",
+    "toneClass": "tone-github"
+  },
+  {
+    "id": "x",
+    "name": "X",
+    "href": "https://x.com/coleyrockin",
+    "tagline": "Thoughts and threads",
+    "toneClass": "tone-x"
+  }
+]
