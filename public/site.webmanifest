@@ -1,1 +1,16 @@
-{"name":"LinkX","short_name":"LinkX","icons":[{"src":"favicon-32x32.png","sizes":"32x32","type":"image/png"},{"src":"apple-touch-icon.png","sizes":"180x180","type":"image/png"}],"theme_color":"#09111f","background_color":"#09111f","display":"standalone"}
+{
+  "name": "LinkX — Boyd Roberts",
+  "short_name": "LinkX",
+  "description": "A single-screen constellation linking to my work, writing, and socials.",
+  "scope": "/linkx/",
+  "start_url": "/linkx/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#09111f",
+  "background_color": "#09111f",
+  "icons": [
+    { "src": "favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "maskable" }
+  ]
+}

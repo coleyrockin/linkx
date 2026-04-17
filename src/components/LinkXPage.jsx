@@ -1,23 +1,35 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import ProfilePhoto from "../assets/imgs/boyd-striped.jpeg";
 import LINKS from "../data/links";
-import NOW from "../data/now.json";
 import useParticleField from "../hooks/useParticleField";
+import useShaderField from "../hooks/useShaderField";
+import useKonamiCode from "./Terminal/useKonamiCode";
+import Terminal from "./Terminal/Terminal";
+import NowSection from "./NowSection";
 import { trackOutbound } from "../lib/analytics";
 
 function LinkXPage() {
-  const canvasRef = useRef(null);
+  const particleRef = useRef(null);
+  const shaderRef = useRef(null);
   const linkRefs = useRef([]);
   const [revealed, setRevealed] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setRevealed(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  useParticleField(canvasRef);
+  const shaderSupported = useShaderField(shaderRef);
+  // Only run the 2D particle layer when the shader is active. If the shader
+  // failed or is still probing, the CSS aurora and grain remain as a fallback.
+  useParticleField(shaderSupported ? particleRef : { current: null });
 
-  const onKeyDown = useCallback((e, index) => {
+  const openTerminal = useCallback(() => setTerminalOpen(true), []);
+  const closeTerminal = useCallback(() => setTerminalOpen(false), []);
+  useKonamiCode(openTerminal);
+
+  const onLinkKeyDown = useCallback((e, index) => {
     if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
     e.preventDefault();
     const delta = e.key === "ArrowDown" ? 1 : -1;
@@ -25,15 +37,16 @@ function LinkXPage() {
     linkRefs.current[next]?.focus();
   }, []);
 
-  const formattedNowDate = new Date(NOW.updated).toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
-
   return (
     <div className={`lx ${revealed ? "lx--revealed" : ""}`}>
-      <canvas className="lx-particles" ref={canvasRef} aria-hidden="true" />
-      <div className="lx-aurora" aria-hidden="true" />
+      <canvas
+        className="lx-shader"
+        ref={shaderRef}
+        aria-hidden="true"
+        data-active={shaderSupported === true ? "true" : "false"}
+      />
+      <canvas className="lx-particles" ref={particleRef} aria-hidden="true" />
+      <div className="lx-aurora" aria-hidden="true" data-shader={shaderSupported === true ? "true" : "false"} />
       <div className="lx-grain" aria-hidden="true" />
 
       <main id="main" className="lx-content">
@@ -75,7 +88,7 @@ function LinkXPage() {
                 className={`lx-link ${link.toneClass}`}
                 style={{ "--i": i }}
                 onClick={() => trackOutbound(link.id, link.href)}
-                onKeyDown={(e) => onKeyDown(e, i)}
+                onKeyDown={(e) => onLinkKeyDown(e, i)}
                 data-link-id={link.id}
               >
                 <span className="lx-link-glow" aria-hidden="true" />
@@ -96,18 +109,16 @@ function LinkXPage() {
           })}
         </nav>
 
-        <section className="lx-now" aria-labelledby="lx-now-heading">
-          <div className="lx-now-head">
-            <h2 id="lx-now-heading" className="lx-now-title">Now</h2>
-            <span className="lx-now-date">{formattedNowDate}</span>
-          </div>
-          <ul className="lx-now-list">
-            {NOW.items.map((item, i) => (
-              <li key={i} className="lx-now-item">{item}</li>
-            ))}
-          </ul>
-        </section>
+        <NowSection />
+
+        <footer className="lx-foot">
+          <span className="lx-foot-hint" aria-hidden="true">
+            psst — try the Konami code
+          </span>
+        </footer>
       </main>
+
+      {terminalOpen && <Terminal onClose={closeTerminal} />}
     </div>
   );
 }
