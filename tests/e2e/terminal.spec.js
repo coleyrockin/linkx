@@ -35,6 +35,11 @@ test.describe("Konami-code terminal", () => {
     await expect(terminal.getByText(/things i've shipped/i)).toBeVisible();
   });
 
+  test("opens via the visible footer button (touch-friendly)", async ({ page }) => {
+    await page.getByRole("button", { name: /developer terminal/i }).click();
+    await expect(page.getByRole("dialog", { name: /terminal/i })).toBeVisible();
+  });
+
   test("closes on Escape", async ({ page }) => {
     await triggerKonami(page);
     await expect(page.getByRole("dialog", { name: /terminal/i })).toBeVisible();

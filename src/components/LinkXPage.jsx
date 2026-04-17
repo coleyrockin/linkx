@@ -112,9 +112,27 @@ function LinkXPage() {
         <NowSection />
 
         <footer className="lx-foot">
-          <span className="lx-foot-hint" aria-hidden="true">
-            psst — try the Konami code
-          </span>
+          <button
+            type="button"
+            className="lx-foot-hint"
+            onClick={openTerminal}
+            aria-label="Open developer terminal"
+          >
+            <span className="lx-foot-hint-label">secret:</span>
+            <span className="lx-foot-keys" aria-hidden="true">
+              <kbd>↑</kbd>
+              <kbd>↑</kbd>
+              <kbd>↓</kbd>
+              <kbd>↓</kbd>
+              <kbd>←</kbd>
+              <kbd>→</kbd>
+              <kbd>←</kbd>
+              <kbd>→</kbd>
+              <kbd>B</kbd>
+              <kbd>A</kbd>
+            </span>
+            <span className="lx-foot-hint-tap">tap to open</span>
+          </button>
         </footer>
       </main>
 

@@ -775,15 +775,92 @@ body {
 .lx--revealed .lx-foot { opacity: 1; }
 
 .lx-foot-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-dim);
-  opacity: 0.5;
-  padding: 0.4rem 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  opacity: 0.82;
+  padding: 0.5rem 0.85rem;
   border-radius: 999px;
-  border: 1px dashed var(--glass-border);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
   user-select: none;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.lx-foot-hint:hover,
+.lx-foot-hint:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+  background: var(--glass-hover);
+}
+
+.lx-foot-hint:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.lx-foot-hint:active {
+  transform: translateY(0);
+}
+
+.lx-foot-hint-label {
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.62rem;
+}
+
+.lx-foot-keys {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.lx-foot-keys kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.35em;
+  height: 1.35em;
+  padding: 0 0.25em;
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.lx-foot-hint-tap {
+  display: none;
+  color: var(--ink-dim);
+  font-size: 0.68rem;
+}
+
+/* On touch devices, show "tap to open" and hide the arrow salad —
+   it's not reachable anyway. */
+@media (hover: none) {
+  .lx-foot-keys { display: none; }
+  .lx-foot-hint-tap { display: inline; }
+  .lx-foot-hint-label { font-size: 0.7rem; letter-spacing: 0.08em; }
+}
+
+/* Light theme overrides for kbd pills */
+@media (prefers-color-scheme: light) {
+  .lx-foot-keys kbd {
+    background: linear-gradient(180deg, rgba(16, 20, 32, 0.04), rgba(16, 20, 32, 0.08));
+    box-shadow:
+      inset 0 -1px 0 rgba(16, 20, 32, 0.1),
+      0 1px 0 rgba(255, 255, 255, 0.8);
+  }
 }
 
 /* ── Terminal overlay ──────────────────────────────── */
