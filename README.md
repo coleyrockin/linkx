@@ -8,7 +8,7 @@ A hand-built personal link hub in React — a single-screen "constellation" with
 
 **[Live site →](https://coleyrockin.github.io/linkx/)**
 
-![LinkX](src/assets/imgs/LinkxRefactor.jpg)
+![LinkX](src/assets/imgs/LinkxRefactor.png)
 
 ## Why this exists
 

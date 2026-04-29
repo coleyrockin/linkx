@@ -179,8 +179,8 @@ export default function useShaderField(canvasRef) {
 
     const mouse = { x: 0, y: 0 };
     const onMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = canvas.height - e.clientY;
+      mouse.x = e.clientX * dpr;
+      mouse.y = canvas.height - e.clientY * dpr;
     };
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -209,7 +209,7 @@ export default function useShaderField(canvasRef) {
       const t = prefersReducedMotion ? 0 : (now - start) / 1000;
       gl.uniform1f(uTime, t);
       gl.uniform2f(uResolution, canvas.width, canvas.height);
-      gl.uniform2f(uMouse, mouse.x * dpr, mouse.y * dpr);
+      gl.uniform2f(uMouse, mouse.x, mouse.y);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       if (!prefersReducedMotion) {
         raf = requestAnimationFrame(render);
