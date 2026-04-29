@@ -18,7 +18,7 @@ Most link-in-bio pages are rented real estate on someone else's platform. LinkX 
 
 - **WebGL fragment-shader backdrop.** A full-screen aurora rendered by a GLSL fragment shader — layered simplex-noise FBM with cursor-driven warp. Theme-aware (palette swaps on `prefers-color-scheme`) and motion-aware (animation paused when `prefers-reduced-motion` is set). Falls back to a CSS aurora if WebGL is unavailable. See [`useShaderField.js`](src/hooks/useShaderField.js).
 - **Canvas 2D particle field.** A second layer — ~80 softly-repelling particles with cursor interaction and neighbor-connection lines — running in a single `requestAnimationFrame` loop. Extracted into [`useParticleField.js`](src/hooks/useParticleField.js).
-- **Hidden developer terminal.** The Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`) opens a real interactive terminal: `help`, `whoami`, `skills`, `projects`, `contact`, `links`, `theme`, `clear`, `exit` — plus a few playful commands. On desktop a footer pill shows the sequence as styled `<kbd>` keys; on touch devices the same pill becomes a tap-to-open button so the easter egg isn't desktop-only. Every command is unit-tested; the terminal is e2e-tested via Playwright. See [`Terminal/`](src/components/Terminal/).
+- **Hidden developer terminal.** The Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`) opens a real interactive terminal. Core commands: `help`, `whoami`, `skills`, `projects`, `contact`, `links`, `theme`, `clear`, `exit`. Easter-egg shell commands: `ls`, `pwd`, `date`, `echo`, `sudo`, `rm -rf /`. On desktop a footer pill shows the sequence as styled `<kbd>` keys; on touch devices the same pill becomes a tap-to-open button so the easter egg isn't desktop-only. Every command is unit-tested; the terminal is e2e-tested via Playwright. See [`Terminal/`](src/components/Terminal/).
 - **Live "Now" feed from the GitHub API.** The Now section fetches my most recent public pushes, dedupes by repo, and formats relative timestamps. Cached in `localStorage` with a 15-minute TTL; gracefully falls back to a static JSON list if the API is unreachable or rate-limited. See [`lib/github.js`](src/lib/github.js).
 - **Light + dark themes.** The palette, shader colors, particle opacity, and glass panels all flip on `prefers-color-scheme` — no toggle required.
 - **Progressive enhancement end-to-end.** Shader → canvas → CSS. JavaScript-off still shows the link stack. Service worker makes it installable and offline-capable.
@@ -33,6 +33,7 @@ Most link-in-bio pages are rented real estate on someone else's platform. LinkX 
 - **React 18** on **Vite 6**
 - **Vanilla CSS** with custom-property-driven theming (no Tailwind, no CSS-in-JS)
 - **Canvas 2D** and **WebGL 1** for the backdrops
+- **react-icons** for social/link icons
 - **Vitest** + **@testing-library/react** for unit tests
 - **Playwright** + **@axe-core/playwright** for end-to-end and a11y tests
 - **ESLint 9** (flat config) for lint
