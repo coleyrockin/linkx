@@ -55,6 +55,8 @@ npm install
 npm run dev
 ```
 
+Then open **http://localhost:5188/** (Vite is pinned to port **5188** with `strictPort` so you do not accidentally hit another project on the default **5173**). Local dev uses base `/`; production builds still use `/linkx/` for GitHub Pages.
+
 ## Tests
 
 ```bash

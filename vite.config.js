@@ -1,9 +1,28 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
-  base: "/linkx/",
-  plugins: [react()],
+// GitHub Pages serves this repo at /linkx/. Local dev uses "/" so http://localhost:5188/
+// is unambiguous (port 5173 is often another Vite project).
+const pagesBase = "/linkx/";
+
+export default defineConfig(({ command }) => ({
+  base: command === "serve" ? "/" : pagesBase,
+  plugins: [
+    react(),
+    {
+      name: "linkx-dev-html-asset-paths",
+      transformIndexHtml(html, ctx) {
+        if (!ctx.server) return html;
+        // index.html hardcodes /linkx/ for production OG URLs and public assets;
+        // rewrite only same-origin asset links for dev with base "/".
+        return html.replaceAll('href="/linkx/', 'href="/');
+      },
+    },
+  ],
+  server: {
+    port: 5188,
+    strictPort: true,
+  },
   build: {
     outDir: "build",
     sourcemap: false,
@@ -14,4 +33,4 @@ export default defineConfig({
     globals: true,
     exclude: ["node_modules", "tests/e2e/**", "build"],
   },
-});
+}));
