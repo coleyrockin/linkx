@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, test } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import LinkXPage from "./components/LinkXPage";
 
 beforeAll(() => {
@@ -39,5 +40,22 @@ describe("LinkX smoke test", () => {
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
     }
+  });
+
+  test("supports grouped linked-tree search and tag filtering", async () => {
+    const user = userEvent.setup();
+    render(<LinkXPage />);
+
+    const treeNav = screen.getByRole("navigation", { name: /external links/i });
+    expect(within(treeNav).getByText("Work")).toBeInTheDocument();
+    expect(within(treeNav).getByText("Build")).toBeInTheDocument();
+    expect(within(treeNav).getByText("Social")).toBeInTheDocument();
+
+    const searchInput = screen.getByRole("textbox", { name: /search links/i });
+    await user.type(searchInput, "tag:build");
+
+    expect(screen.getByRole("link", { name: /portfolio/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /instagram/i })).not.toBeInTheDocument();
   });
 });

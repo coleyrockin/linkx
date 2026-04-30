@@ -4,34 +4,54 @@
     "name": "Instagram",
     "href": "https://www.instagram.com/coleyrockin/",
     "tagline": "Behind the scenes",
-    "toneClass": "tone-instagram"
+    "toneClass": "tone-instagram",
+    "group": "social",
+    "tags": ["social", "visual", "behind-the-scenes"],
+    "related": ["linkedin", "x"],
+    "aliases": ["ig", "reels", "stories"]
   },
   {
     "id": "linkedin",
     "name": "LinkedIn",
     "href": "https://www.linkedin.com/in/boydcroberts/",
     "tagline": "Professional world",
-    "toneClass": "tone-linkedin"
+    "toneClass": "tone-linkedin",
+    "group": "work",
+    "tags": ["work", "career", "network"],
+    "related": ["portfolio", "github"],
+    "aliases": ["resume", "professional", "cv"]
   },
   {
     "id": "portfolio",
     "name": "Portfolio",
     "href": "https://coleyrockin.github.io/react-portfolio/",
     "tagline": "Projects and builds",
-    "toneClass": "tone-portfolio"
+    "toneClass": "tone-portfolio",
+    "group": "build",
+    "tags": ["build", "projects", "frontend"],
+    "related": ["github", "linkedin"],
+    "aliases": ["showcase", "case studies", "work samples"]
   },
   {
     "id": "github",
     "name": "GitHub",
     "href": "https://github.com/coleyrockin",
     "tagline": "Code and open source",
-    "toneClass": "tone-github"
+    "toneClass": "tone-github",
+    "group": "build",
+    "tags": ["build", "code", "opensource"],
+    "related": ["portfolio", "linkedin", "x"],
+    "aliases": ["repos", "oss", "source"]
   },
   {
     "id": "x",
     "name": "X",
     "href": "https://x.com/coleyrockin",
     "tagline": "Thoughts and threads",
-    "toneClass": "tone-x"
+    "toneClass": "tone-x",
+    "group": "social",
+    "tags": ["social", "thoughts", "updates"],
+    "related": ["instagram", "github"],
+    "aliases": ["twitter", "posts", "threads"]
   }
 ]

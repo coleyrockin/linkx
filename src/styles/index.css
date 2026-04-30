@@ -277,6 +277,69 @@ body {
   width: 100%;
 }
 
+.lx-tree-controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.lx-tree-search {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--ink);
+  font: inherit;
+  padding: 0.65rem 0.8rem;
+}
+
+.lx-tree-search:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.lx-tree-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+  gap: 0.5rem;
+}
+
+.lx-tree {
+  display: grid;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.lx-branch {
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--glass) 88%, transparent);
+  padding: 0.65rem 0.7rem 0.7rem;
+}
+
+.lx-branch-title {
+  font: 700 0.68rem/1 "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 0.45rem 0.2rem;
+}
+
+.lx-branch-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.lx-node {
+  position: relative;
+}
+
 .lx-link {
   --tone-rgb: 255, 255, 255;
   position: relative;
@@ -409,6 +472,12 @@ body {
   color: var(--ink-dim);
 }
 
+.lx-link-tags {
+  font-size: 0.68rem;
+  color: var(--ink-dim);
+  opacity: 0.75;
+}
+
 /* Arrow */
 .lx-link-go {
   display: grid;
@@ -422,6 +491,29 @@ body {
 .lx-link:hover .lx-link-go {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+.lx-link-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.38rem 0.1rem 0.1rem 3.95rem;
+}
+
+.lx-related-chip {
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  padding: 0.14rem 0.48rem;
+  font-size: 0.65rem;
+  color: var(--ink-dim);
+  background: color-mix(in srgb, var(--glass) 75%, transparent);
+}
+
+.lx-match {
+  background: color-mix(in srgb, var(--focus) 40%, transparent);
+  color: inherit;
+  border-radius: 4px;
+  padding: 0 2px;
 }
 
 /* ── Tone colors ────────────────────────────────────── */

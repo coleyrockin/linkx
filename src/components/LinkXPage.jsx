@@ -1,19 +1,36 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useMemo, lazy, Suspense } from "react";
 import ProfilePhoto from "../assets/imgs/boyd-striped.jpeg";
-import LINKS from "../data/links";
+import LINKS, { filterLinks, groupLinks } from "../data/links";
 import useParticleField from "../hooks/useParticleField";
 import useShaderField from "../hooks/useShaderField";
 import useKonamiCode from "./Terminal/useKonamiCode";
-import Terminal from "./Terminal/Terminal";
-import NowSection from "./NowSection";
 import { trackOutbound } from "../lib/analytics";
+
+const Terminal = lazy(() => import("./Terminal/Terminal"));
+const NowSection = lazy(() => import("./NowSection"));
+
+function highlightText(text, queryTokens) {
+  if (!queryTokens.length) return text;
+  const lowered = text.toLowerCase();
+  const firstToken = queryTokens.find((token) => lowered.includes(token));
+  if (!firstToken) return text;
+  const start = lowered.indexOf(firstToken);
+  const end = start + firstToken.length;
+  return (
+    <>
+      {text.slice(0, start)}
+      <mark className="lx-match">{text.slice(start, end)}</mark>
+      {text.slice(end)}
+    </>
+  );
+}
 
 function LinkXPage() {
   const particleRef = useRef(null);
   const shaderRef = useRef(null);
-  const linkRefs = useRef([]);
   const [revealed, setRevealed] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => setRevealed(true), 100);
@@ -29,13 +46,16 @@ function LinkXPage() {
   const closeTerminal = useCallback(() => setTerminalOpen(false), []);
   useKonamiCode(openTerminal);
 
-  const onLinkKeyDown = useCallback((e, index) => {
-    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
-    e.preventDefault();
-    const delta = e.key === "ArrowDown" ? 1 : -1;
-    const next = (index + delta + LINKS.length) % LINKS.length;
-    linkRefs.current[next]?.focus();
-  }, []);
+  const filteredLinks = useMemo(() => filterLinks(search), [search]);
+  const groupedLinks = useMemo(() => groupLinks(filteredLinks), [filteredLinks]);
+  const queryTokens = useMemo(
+    () => search.trim().toLowerCase().split(/\s+/).filter((token) => token && !token.startsWith("tag:")),
+    [search]
+  );
+  const relatedLookup = useMemo(
+    () => Object.fromEntries(LINKS.map((link) => [link.id, link])),
+    []
+  );
 
   return (
     <div className={`lx ${revealed ? "lx--revealed" : ""}`}>
@@ -73,43 +93,72 @@ function LinkXPage() {
           </div>
         </div>
 
-        <nav className="lx-links" aria-label="External links">
-          {LINKS.map((link, i) => {
-            const Icon = link.icon;
-            return (
-              <a
-                key={link.id}
-                ref={(el) => {
-                  linkRefs.current[i] = el;
-                }}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`lx-link ${link.toneClass}`}
-                style={{ "--i": i }}
-                onClick={() => trackOutbound(link.id, link.href)}
-                onKeyDown={(e) => onLinkKeyDown(e, i)}
-                data-link-id={link.id}
-              >
-                <span className="lx-link-glow" aria-hidden="true" />
-                <span className="lx-link-icon" aria-hidden="true">
-                  <Icon />
-                </span>
-                <span className="lx-link-body">
-                  <span className="lx-link-name">{link.name}</span>
-                  <span className="lx-link-sub">{link.tagline}</span>
-                </span>
-                <span className="lx-link-go" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M7 17L17 7M17 7H7M17 7v10" />
-                  </svg>
-                </span>
-              </a>
-            );
-          })}
+        <section className="lx-tree-controls" aria-label="Search links">
+          <input
+            type="text"
+            className="lx-tree-search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search links or use tag:build"
+            aria-label="Search links"
+          />
+          <div className="lx-tree-meta">
+            <span>{filteredLinks.length} matches</span>
+            <span>Try: tag:social, tag:build</span>
+          </div>
+        </section>
+
+        <nav className="lx-tree" aria-label="External links">
+          {groupedLinks.map((group, groupIndex) => (
+            <section key={group.id} className="lx-branch" style={{ "--g": groupIndex }} aria-label={group.label}>
+              <h2 className="lx-branch-title">{group.label}</h2>
+              <ul className="lx-branch-list">
+                {group.links.map((link, i) => {
+                  const Icon = link.icon;
+                  return (
+                    <li key={link.id} className={`lx-node ${link.toneClass}`} style={{ "--i": i }} data-link-id={link.id}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`lx-link ${link.toneClass}`}
+                        onClick={() => trackOutbound(link.id, link.href)}
+                      >
+                        <span className="lx-link-glow" aria-hidden="true" />
+                        <span className="lx-link-icon" aria-hidden="true">
+                          <Icon />
+                        </span>
+                        <span className="lx-link-body">
+                          <span className="lx-link-name">{highlightText(link.name, queryTokens)}</span>
+                          <span className="lx-link-sub">{highlightText(link.tagline, queryTokens)}</span>
+                          <span className="lx-link-tags" aria-hidden="true">{(link.tags || []).slice(0, 3).join(" · ")}</span>
+                        </span>
+                        <span className="lx-link-go" aria-hidden="true">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                          </svg>
+                        </span>
+                      </a>
+                      <div className="lx-link-related" aria-hidden="true">
+                        {(link.related || []).map((rel) => {
+                          const related = relatedLookup[rel];
+                          if (!related) return null;
+                          return (
+                            <span key={rel} className="lx-related-chip">{related.name}</span>
+                          );
+                        })}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
         </nav>
 
-        <NowSection />
+        <Suspense fallback={null}>
+          <NowSection />
+        </Suspense>
 
         <footer className="lx-foot">
           <button
@@ -136,7 +185,11 @@ function LinkXPage() {
         </footer>
       </main>
 
-      {terminalOpen && <Terminal onClose={closeTerminal} />}
+      {terminalOpen && (
+        <Suspense fallback={null}>
+          <Terminal onClose={closeTerminal} />
+        </Suspense>
+      )}
     </div>
   );
 }

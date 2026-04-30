@@ -53,4 +53,15 @@ describe("terminal command parser", () => {
     const out = runCommand("projects").join(" ");
     expect(out).toContain("https://github.com/coleyrockin/linkx");
   });
+
+  test("find command returns ranked matches", () => {
+    const out = runCommand("find git");
+    expect(out[0]).toMatch(/^matches \(\d+\):$/);
+    expect(out.join(" ")).toMatch(/github/i);
+  });
+
+  test("related command shows connected nodes", () => {
+    const out = runCommand("related github");
+    expect(out.join(" ")).toMatch(/Portfolio|LinkedIn|X/i);
+  });
 });
