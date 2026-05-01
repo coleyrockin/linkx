@@ -23,7 +23,7 @@ Most link-in-bio pages are rented real estate on someone else's platform. LinkX 
 - **Light + dark themes.** The palette, shader colors, particle opacity, and glass panels all flip on `prefers-color-scheme` — no toggle required.
 - **Progressive enhancement end-to-end.** Shader → canvas → CSS. JavaScript-off still shows the link stack. Service worker makes it installable and offline-capable.
 - **Privacy-friendly analytics.** Outbound clicks tracked through Plausible (no cookies, no PII) via a [`trackOutbound`](src/lib/analytics.js) helper with a dev-mode console fallback.
-- **Accessible by default.** Skip-link, semantic landmarks, labeled `nav` and `dialog`, visible focus rings, arrow-key navigation across the link stack, `rel="noopener noreferrer"` on outbound links. Enforced in CI by axe-core.
+- **Accessible by default.** Skip-link, semantic landmarks, labeled `nav` and `dialog`, visible focus rings, explicit outbound link labels, `rel="noopener noreferrer"` on external links. Enforced in CI by axe-core.
 - **Data-driven content.** Both [`links.json`](src/data/links.json) and [`now.json`](src/data/now.json) decouple data from presentation.
 - **Error boundary.** If the app crashes, the user still sees their most important links and a retry button — not a blank screen. See [`ErrorBoundary.jsx`](src/components/ErrorBoundary.jsx).
 - **Real CI.** Every push runs unit tests before deploy; a parallel audit workflow runs end-to-end Playwright tests and an axe a11y audit against the built site.

@@ -16,7 +16,8 @@ async function triggerKonami(page) {
 
 test.describe("Konami-code terminal", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await page.goto("");
+    await page.waitForSelector("#main", { state: "visible" });
   });
 
   test("opens on the konami sequence", async ({ page }) => {
@@ -35,8 +36,8 @@ test.describe("Konami-code terminal", () => {
     await expect(terminal.getByText(/things i've shipped/i)).toBeVisible();
   });
 
-  test("opens via the visible footer button (touch-friendly)", async ({ page }) => {
-    await page.getByRole("button", { name: /developer terminal/i }).click();
+  test("opens via the visible panel button (touch-friendly)", async ({ page }) => {
+    await page.getByRole("button", { name: /open terminal/i }).click();
     await expect(page.getByRole("dialog", { name: /terminal/i })).toBeVisible();
   });
 

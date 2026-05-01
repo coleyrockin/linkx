@@ -4,7 +4,8 @@ import linksData from "../../src/data/links.json" with { type: "json" };
 
 test.describe("LinkX smoke", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await page.goto("");
+    await page.waitForSelector("#main", { state: "visible" });
   });
 
   test("renders identity + all outbound links with correct attributes", async ({ page }) => {

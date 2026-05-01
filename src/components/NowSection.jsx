@@ -11,18 +11,17 @@ export default function NowSection() {
     year: "numeric",
   });
 
-  // Prefer live commits; fall back to the curated list in now.json.
   const showLive = status === "ready" && items && items.length > 0;
 
   return (
-    <section className="lx-now" aria-labelledby="lx-now-heading">
-      <div className="lx-now-head">
-        <h2 id="lx-now-heading" className="lx-now-title">Now</h2>
-        <span className="lx-now-date">
+    <section className="lx-activity" aria-labelledby="lx-activity-heading">
+      <div className="lx-activity-head">
+        <h2 id="lx-activity-heading" className="lx-activity-title">Now</h2>
+        <span className="lx-activity-meta">
           {showLive ? (
             <>
-              <span className="lx-now-pulse" aria-hidden="true" />
-              live from github
+              <span className="lx-activity-live" aria-hidden="true" />
+              Live
             </>
           ) : (
             formattedDate
@@ -31,26 +30,21 @@ export default function NowSection() {
       </div>
 
       {showLive ? (
-        <ul className="lx-now-list">
+        <ul className="lx-activity-list">
           {items.map((item) => (
-            <li key={`${item.repo}-${item.when}`} className="lx-now-item">
-              <a
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="lx-now-repo"
-              >
+            <li key={`${item.repo}-${item.when}`} className="lx-activity-item">
+              <a href={item.href} target="_blank" rel="noopener noreferrer" className="lx-activity-repo">
                 {item.repo}
               </a>{" "}
-              <span className="lx-now-msg">{item.message}</span>{" "}
-              <span className="lx-now-when">{item.when}</span>
+              <span className="lx-activity-msg">{item.message}</span>{" "}
+              <span className="lx-activity-when">{item.when}</span>
             </li>
           ))}
         </ul>
       ) : (
-        <ul className="lx-now-list">
+        <ul className="lx-activity-list">
           {NOW.items.map((item, i) => (
-            <li key={i} className="lx-now-item">{item}</li>
+            <li key={i} className="lx-activity-item">{item}</li>
           ))}
         </ul>
       )}

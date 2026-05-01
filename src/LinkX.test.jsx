@@ -1,6 +1,5 @@
 import { beforeAll, describe, expect, test } from "vitest";
-import { render, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
 import LinkXPage from "./components/LinkXPage";
 
 beforeAll(() => {
@@ -22,16 +21,14 @@ describe("LinkX smoke test", () => {
   test("renders identity and outbound links with safe attributes", () => {
     render(<LinkXPage />);
 
-    expect(
-      screen.getByRole("heading", { name: /boyd roberts/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /boyd roberts/i })).toBeInTheDocument();
 
     const expected = [
       { pattern: /instagram/i, href: "https://www.instagram.com/coleyrockin/" },
       { pattern: /linkedin/i, href: "https://www.linkedin.com/in/boydcroberts/" },
       { pattern: /portfolio/i, href: "https://coleyrockin.github.io/react-portfolio/" },
       { pattern: /github/i, href: "https://github.com/coleyrockin" },
-      { pattern: /x\s+thoughts/i, href: "https://x.com/coleyrockin" },
+      { pattern: /x.*thoughts/i, href: "https://x.com/coleyrockin" },
     ];
 
     for (const { pattern, href } of expected) {
@@ -42,20 +39,11 @@ describe("LinkX smoke test", () => {
     }
   });
 
-  test("supports grouped linked-tree search and tag filtering", async () => {
-    const user = userEvent.setup();
+  test("renders single-page panel with Now and terminal affordance", async () => {
     render(<LinkXPage />);
 
-    const treeNav = screen.getByRole("navigation", { name: /external links/i });
-    expect(within(treeNav).getByText("Work")).toBeInTheDocument();
-    expect(within(treeNav).getByText("Build")).toBeInTheDocument();
-    expect(within(treeNav).getByText("Social")).toBeInTheDocument();
-
-    const searchInput = screen.getByRole("textbox", { name: /search links/i });
-    await user.type(searchInput, "tag:build");
-
-    expect(screen.getByRole("link", { name: /portfolio/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: /instagram/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("article", { name: /profile and links/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /open terminal/i })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: /^now$/i })).toBeInTheDocument();
   });
 });

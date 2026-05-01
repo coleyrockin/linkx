@@ -67,35 +67,6 @@ export const COMMANDS = {
   ],
 
   links: () => LINKS.map((l) => `  ${l.name.padEnd(10)} ${l.href}`),
-  find: (args) => {
-    const query = args.join(" ").trim().toLowerCase();
-    if (!query) return ["usage: find <query>"];
-    const matches = LINKS.filter((link) =>
-      [link.name, link.tagline, ...(link.tags || []), ...(link.aliases || []), link.id]
-        .join(" ")
-        .toLowerCase()
-        .includes(query)
-    );
-    if (!matches.length) return [`no matches for "${query}"`];
-    return [
-      `matches (${matches.length}):`,
-      ...matches.map((link) => `  ${link.name.padEnd(10)} ${link.href}`),
-    ];
-  },
-  related: (args) => {
-    const id = args[0]?.toLowerCase();
-    if (!id) return ["usage: related <link-id>"];
-    const link = LINKS.find((item) => item.id.toLowerCase() === id);
-    if (!link) return [`unknown link id: ${id}`];
-    const related = (link.related || [])
-      .map((relId) => LINKS.find((item) => item.id === relId))
-      .filter(Boolean);
-    if (!related.length) return [`${link.name} has no related links configured`];
-    return [
-      `${link.name} related links:`,
-      ...related.map((item) => `  ${item.name.padEnd(10)} ${item.href}`),
-    ];
-  },
 
   theme: () => {
     if (typeof window === "undefined" || !window.matchMedia) {
