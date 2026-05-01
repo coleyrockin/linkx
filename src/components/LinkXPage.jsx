@@ -9,15 +9,25 @@ import { trackOutbound } from "../lib/analytics";
 const Terminal = lazy(() => import("./Terminal/Terminal"));
 const NowSection = lazy(() => import("./NowSection"));
 
+// Injected at build time (first 7 chars of GITHUB_SHA on CI, else "local").
+const BUILD_ID = __LINKX_BUILD__;
+
 function LinkXPage() {
   const particleRef = useRef(null);
   const shaderRef = useRef(null);
   const [revealed, setRevealed] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [updateReady, setUpdateReady] = useState(false);
 
   useEffect(() => {
     const timer = requestAnimationFrame(() => setRevealed(true));
     return () => cancelAnimationFrame(timer);
+  }, []);
+
+  useEffect(() => {
+    const onSwUpdated = () => setUpdateReady(true);
+    window.addEventListener("linkx-sw-updated", onSwUpdated);
+    return () => window.removeEventListener("linkx-sw-updated", onSwUpdated);
   }, []);
 
   const shaderSupported = useShaderField(shaderRef);
@@ -39,6 +49,15 @@ function LinkXPage() {
       <div className="lx-aurora" aria-hidden="true" data-shader={shaderSupported === true ? "true" : "false"} />
       <div className="lx-grain" aria-hidden="true" />
       <div className="lx-vignette" aria-hidden="true" />
+
+      {updateReady && (
+        <div className="lx-update-banner" role="status">
+          <span>New version available.</span>
+          <button type="button" className="lx-update-reload" onClick={() => window.location.reload()}>
+            Reload
+          </button>
+        </div>
+      )}
 
       <main id="main" className="lx-main">
         <article className="lx-panel" aria-label="Profile and links">
@@ -116,6 +135,12 @@ function LinkXPage() {
                 Konami · or tap
               </span>
             </button>
+            <p
+              className="lx-build"
+              title="Deploy id from GitHub Actions (production) or “local” in dev. If this looks old, hard-refresh or tap Reload when an update banner appears."
+            >
+              deploy <code>{BUILD_ID}</code>
+            </p>
           </footer>
         </article>
       </main>

@@ -17,8 +17,23 @@ root.render(
 // and serves its last-known version when the network drops.
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {
-      /* intentional: install is best-effort */
-    });
+    navigator.serviceWorker
+      .register(`${import.meta.env.BASE_URL}sw.js`)
+      .then((reg) => {
+        reg.update();
+        reg.addEventListener("updatefound", () => {
+          const next = reg.installing;
+          if (next) {
+            next.addEventListener("statechange", () => {
+              if (next.state === "installed" && navigator.serviceWorker.controller) {
+                window.dispatchEvent(new CustomEvent("linkx-sw-updated"));
+              }
+            });
+          }
+        });
+      })
+      .catch(() => {
+        /* intentional: install is best-effort */
+      });
   });
 }

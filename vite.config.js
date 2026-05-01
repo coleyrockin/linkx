@@ -7,6 +7,12 @@ const pagesBase = "/linkx/";
 
 export default defineConfig(({ command }) => ({
   base: command === "serve" ? "/" : pagesBase,
+  define: {
+    // Shown in UI so you can confirm GitHub Pages served the latest deploy (see public/sw.js).
+    __LINKX_BUILD__: JSON.stringify(
+      process.env.GITHUB_SHA?.slice(0, 7) || "local"
+    ),
+  },
   plugins: [
     react(),
     {

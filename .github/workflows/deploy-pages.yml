@@ -44,6 +44,8 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          GITHUB_SHA: ${{ github.sha }}
         run: npm run build
 
       - name: Upload Pages artifact
