@@ -19,6 +19,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
+        __LINKX_BUILD__: "readonly",
       },
     },
     plugins: {

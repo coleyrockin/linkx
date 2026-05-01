@@ -45,5 +45,9 @@ describe("LinkX smoke test", () => {
     expect(screen.getByRole("article", { name: /profile and links/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /open terminal/i })).toBeInTheDocument();
     expect(await screen.findByRole("heading", { name: /^now$/i })).toBeInTheDocument();
+    expect(
+      screen.getByTitle(/deploy id from github actions/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText("local")).toBeInTheDocument();
   });
 });

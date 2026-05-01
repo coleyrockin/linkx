@@ -1,25 +1,18 @@
-// LinkX service worker — cache-first for the shell, network-first for everything else.
-// Bumping CACHE keeps upgrades honest (old entries auto-expire on activation).
-const CACHE = "linkx-v1";
-const SHELL = [
-  "/linkx/",
-  "/linkx/index.html",
-  "/linkx/favicon.ico",
-  "/linkx/apple-touch-icon.png",
-  "/linkx/site.webmanifest",
-];
+// LinkX service worker — navigations network-first; hashed assets network-first so updates always land.
+// Bump CACHE_NAME when changing caching rules.
+const CACHE_NAME = "linkx-v3";
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting())
-  );
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) =>
+        Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+      )
       .then(() => self.clients.claim())
   );
 });
@@ -31,33 +24,56 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  // Navigation: network-first, fall back to cached shell.
+  const path = url.pathname;
+  const isHashedAsset =
+    path.includes("/assets/") && /\.(js|css|woff2?|png|jpe?g|svg|webp)$/i.test(path);
+
+  // Hashed Vite bundles: always try network first (cache busted by filename).
+  if (isHashedAsset) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // HTML navigations: network first, then cached shell.
   if (req.mode === "navigate") {
     event.respondWith(
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(req, copy));
+          if (res.ok) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+          }
           return res;
         })
-        .catch(() => caches.match("/linkx/index.html"))
+        .catch(() => caches.match("/linkx/index.html").then((r) => r || caches.match("/linkx/")))
     );
     return;
   }
 
-  // Static assets: stale-while-revalidate.
+  // Other same-origin GETs: stale-while-revalidate (network updates cache in background).
   event.respondWith(
     caches.match(req).then((cached) => {
-      const network = fetch(req)
+      const networkFetch = fetch(req)
         .then((res) => {
           if (res.ok) {
             const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(req, copy));
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
           }
           return res;
         })
-        .catch(() => cached);
-      return cached || network;
+        .catch(() => null);
+
+      return networkFetch.then((networkRes) => networkRes || cached);
     })
   );
 });
