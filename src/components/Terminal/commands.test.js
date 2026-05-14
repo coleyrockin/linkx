@@ -56,8 +56,7 @@ describe("terminal command parser", () => {
 
   test("work output contains featured work", () => {
     const out = runCommand("work").join(" ");
-    expect(out).toContain("LinkX");
-    expect(out).toContain("Agent Daily AI");
+    expect(out).toContain("Portfolio");
   });
 
   test("now output contains the static now feed", () => {

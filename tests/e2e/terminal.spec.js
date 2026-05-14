@@ -44,7 +44,7 @@ test.describe("Konami-code terminal", () => {
     await input.press("Enter");
     const terminal = page.getByRole("dialog", { name: /terminal/i });
     await expect(terminal.getByText(/featured work:/i)).toBeVisible();
-    await expect(terminal.getByText(/agent daily ai/i)).toBeVisible();
+    await expect(terminal.getByText(/portfolio.*project gallery/i)).toBeVisible();
   });
 
   test("opens via the visible panel button (touch-friendly)", async ({ page }) => {

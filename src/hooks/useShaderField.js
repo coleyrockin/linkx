@@ -18,14 +18,14 @@ void main() {
 `;
 
 // FBM aurora: layered simplex-noise flow with cursor-driven warp.
-// Colors resolve against a dark-or-light uniform so the shader honors the theme.
+// Colors stay in the dark signal-stack palette regardless of browser theme.
 const FRAGMENT_SHADER = `
 precision highp float;
 
 uniform float  u_time;
 uniform vec2   u_resolution;
 uniform vec2   u_mouse;
-uniform float  u_scheme; // 0.0 dark, 1.0 light
+uniform float  u_scheme; // fixed at 0.0 for dark mode
 
 // Simplex noise — Ashima Arts / Stefan Gustavson, CC0.
 vec3 mod289(vec3 x){ return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -175,11 +175,6 @@ export default function useShaderField(canvasRef) {
     const match = (q) =>
       typeof window.matchMedia === "function" && window.matchMedia(q).matches;
     const prefersReducedMotion = match("(prefers-reduced-motion: reduce)");
-    const colorSchemeQuery =
-      typeof window.matchMedia === "function"
-        ? window.matchMedia("(prefers-color-scheme: light)")
-        : null;
-
     const mouse = { x: 0, y: 0 };
     const onMove = (e) => {
       mouse.x = e.clientX * dpr;
@@ -205,16 +200,7 @@ export default function useShaderField(canvasRef) {
     gl.enableVertexAttribArray(positionLoc);
     gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
 
-    const syncScheme = () => {
-      gl.uniform1f(uScheme, colorSchemeQuery?.matches ? 1.0 : 0.0);
-    };
-    syncScheme();
-
-    if (colorSchemeQuery?.addEventListener) {
-      colorSchemeQuery.addEventListener("change", syncScheme);
-    } else if (colorSchemeQuery?.addListener) {
-      colorSchemeQuery.addListener(syncScheme);
-    }
+    gl.uniform1f(uScheme, 0.0);
 
     const start = performance.now();
     let raf;
@@ -236,11 +222,6 @@ export default function useShaderField(canvasRef) {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
-      if (colorSchemeQuery?.removeEventListener) {
-        colorSchemeQuery.removeEventListener("change", syncScheme);
-      } else if (colorSchemeQuery?.removeListener) {
-        colorSchemeQuery.removeListener(syncScheme);
-      }
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
     };

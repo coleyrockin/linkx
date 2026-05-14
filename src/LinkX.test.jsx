@@ -28,7 +28,6 @@ describe("LinkX smoke test", () => {
       { pattern: /linkedin/i, href: "https://www.linkedin.com/in/boydcroberts/", external: true },
       { pattern: /portfolio/i, href: "https://coleyrockin.github.io/react-portfolio/", external: true },
       { pattern: /github/i, href: "https://github.com/coleyrockin", external: true },
-      { pattern: /x.*thoughts/i, href: "https://x.com/coleyrockin", external: true },
       { pattern: /email.*direct contact/i, href: "mailto:coleyrockin@aol.com", external: false },
     ];
 
@@ -52,7 +51,7 @@ describe("LinkX smoke test", () => {
 
     expect(screen.getByRole("article", { name: /profile and links/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /featured work/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /linkx.*personal hub/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /portfolio.*project gallery/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /open terminal/i })).toBeInTheDocument();
     expect(await screen.findByRole("heading", { name: /^now$/i })).toBeInTheDocument();
   });

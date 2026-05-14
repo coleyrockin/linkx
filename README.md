@@ -16,12 +16,12 @@ Most link-in-bio pages are rented real estate on someone else's platform. LinkX 
 
 ## What it demonstrates
 
-- **WebGL fragment-shader backdrop.** A full-screen aurora rendered by a GLSL fragment shader — layered simplex-noise FBM with cursor-driven warp. Theme-aware (palette swaps on `prefers-color-scheme`) and motion-aware (animation paused when `prefers-reduced-motion` is set). Falls back to a CSS aurora if WebGL is unavailable. See [`useShaderField.js`](src/hooks/useShaderField.js).
+- **WebGL fragment-shader backdrop.** A full-screen aurora rendered by a GLSL fragment shader — layered simplex-noise FBM with cursor-driven warp. Dark-first and motion-aware (animation paused when `prefers-reduced-motion` is set). Falls back to a CSS aurora if WebGL is unavailable. See [`useShaderField.js`](src/hooks/useShaderField.js).
 - **Canvas 2D particle field.** A second layer — ~80 softly-repelling particles with cursor interaction and neighbor-connection lines — running in a single `requestAnimationFrame` loop. Extracted into [`useParticleField.js`](src/hooks/useParticleField.js).
 - **Hidden developer terminal.** The Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`) opens a real interactive terminal. Core commands: `help`, `whoami`, `skills`, `projects`, `work`, `now`, `repo`, `contact`, `links`, `theme`, `clear`, `exit`. Easter-egg shell commands: `ls`, `pwd`, `date`, `echo`, `sudo`, `rm -rf /`. The visible panel button opens the same terminal for touch users. Every command is unit-tested; the terminal is e2e-tested via Playwright. See [`Terminal/`](src/components/Terminal/).
 - **Live "Now" feed from the GitHub API.** The Now section fetches my most recent public pushes, dedupes by repo, and formats relative timestamps. Cached in `localStorage` with a 15-minute TTL; gracefully falls back to a static JSON list if the API is unreachable or rate-limited. See [`lib/github.js`](src/lib/github.js).
-- **Featured Work.** A compact proof layer highlights LinkX, the portfolio, and Agent Daily AI using conservative public-safe project copy from [`highlights.json`](src/data/highlights.json).
-- **Light + dark themes.** The palette, shader colors, particle opacity, and glass panels all flip on `prefers-color-scheme` — no toggle required.
+- **Featured Work.** A compact proof layer highlights the portfolio using conservative public-safe project copy from [`highlights.json`](src/data/highlights.json).
+- **Dark signal-stack theme.** The palette, shader colors, particle opacity, and glass panels stay dark across browsers so Chrome/OS light mode cannot wash out the interface.
 - **Progressive enhancement end-to-end.** Shader → canvas → CSS. JavaScript-off still shows the link stack. Service worker makes it installable and offline-capable.
 - **Privacy-friendly analytics.** Outbound clicks tracked through Plausible (no cookies, no PII) via a [`trackOutbound`](src/lib/analytics.js) helper with a dev-mode console fallback.
 - **Accessible by default.** Skip-link, semantic landmarks, labeled `nav` and `dialog`, visible focus rings, explicit outbound link labels, `rel="noopener noreferrer"` on external links. Enforced in CI by axe-core.

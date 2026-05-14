@@ -14,7 +14,6 @@ const SKILLS = [
 const PROJECTS = [
   { name: "LinkX",      href: "https://github.com/coleyrockin/linkx",           why: "this site — React + Vite + WebGL shader + Playwright/axe CI" },
   { name: "Portfolio",  href: "https://coleyrockin.github.io/react-portfolio/", why: "longer-form project gallery" },
-  { name: "Agent Daily AI", href: "https://github.com/coleyrockin",             why: "multi-platform social agents — Playwright-driven, isolated browser profiles" },
 ];
 
 const BANNER = [
@@ -99,10 +98,9 @@ export const COMMANDS = {
     if (typeof window === "undefined" || !window.matchMedia) {
       return ["theme detection unavailable"];
     }
-    const light = window.matchMedia("(prefers-color-scheme: light)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     return [
-      `scheme: ${light ? "light" : "dark"}`,
+      "scheme: dark",
       `motion: ${reduced ? "reduced" : "full"}`,
     ];
   },
