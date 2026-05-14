@@ -1,4 +1,6 @@
 import LINKS from "../../data/links";
+import HIGHLIGHTS from "../../data/highlights.json";
+import NOW from "../../data/now.json";
 
 const SKILLS = [
   "React, TypeScript, Vite, Next.js",
@@ -35,6 +37,9 @@ export const COMMANDS = {
     "  whoami      — short bio",
     "  skills      — stack and strengths",
     "  projects    — things I've shipped",
+    "  work        — featured work on the page",
+    "  now         — current static Now feed",
+    "  repo        — source, live URL, and validation",
     "  contact     — reach me",
     "  links       — all outbound links on this page",
     "  theme       — detected color scheme",
@@ -58,6 +63,28 @@ export const COMMANDS = {
       `    → ${p.href}`,
       "",
     ]).slice(0, -1),
+  ],
+
+  work: () => [
+    "featured work:",
+    ...HIGHLIGHTS.flatMap((item) => [
+      `  ${item.name} — ${item.role}`,
+      `    ${item.summary}`,
+      `    ${item.meta}`,
+      `    → ${item.href}`,
+      "",
+    ]).slice(0, -1),
+  ],
+
+  now: () => [
+    `updated: ${NOW.updated}`,
+    ...NOW.items.map((item) => `  - ${item}`),
+  ],
+
+  repo: () => [
+    "live: https://coleyrockin.github.io/linkx/",
+    "repo: https://github.com/coleyrockin/linkx",
+    "validate: npm run lint && npm test && npm run build && npm run test:e2e",
   ],
 
   contact: () => [

@@ -175,7 +175,10 @@ export default function useShaderField(canvasRef) {
     const match = (q) =>
       typeof window.matchMedia === "function" && window.matchMedia(q).matches;
     const prefersReducedMotion = match("(prefers-reduced-motion: reduce)");
-    const prefersLight = match("(prefers-color-scheme: light)");
+    const colorSchemeQuery =
+      typeof window.matchMedia === "function"
+        ? window.matchMedia("(prefers-color-scheme: light)")
+        : null;
 
     const mouse = { x: 0, y: 0 };
     const onMove = (e) => {
@@ -201,7 +204,17 @@ export default function useShaderField(canvasRef) {
     gl.useProgram(program);
     gl.enableVertexAttribArray(positionLoc);
     gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
-    gl.uniform1f(uScheme, prefersLight ? 1.0 : 0.0);
+
+    const syncScheme = () => {
+      gl.uniform1f(uScheme, colorSchemeQuery?.matches ? 1.0 : 0.0);
+    };
+    syncScheme();
+
+    if (colorSchemeQuery?.addEventListener) {
+      colorSchemeQuery.addEventListener("change", syncScheme);
+    } else if (colorSchemeQuery?.addListener) {
+      colorSchemeQuery.addListener(syncScheme);
+    }
 
     const start = performance.now();
     let raf;
@@ -223,6 +236,11 @@ export default function useShaderField(canvasRef) {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
+      if (colorSchemeQuery?.removeEventListener) {
+        colorSchemeQuery.removeEventListener("change", syncScheme);
+      } else if (colorSchemeQuery?.removeListener) {
+        colorSchemeQuery.removeListener(syncScheme);
+      }
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
     };

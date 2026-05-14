@@ -43,8 +43,8 @@ export default function NowSection() {
         </ul>
       ) : (
         <ul className="lx-activity-list">
-          {NOW.items.map((item, i) => (
-            <li key={i} className="lx-activity-item">{item}</li>
+          {NOW.items.map((item) => (
+            <li key={item} className="lx-activity-item">{item}</li>
           ))}
         </ul>
       )}

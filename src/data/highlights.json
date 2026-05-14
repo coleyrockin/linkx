@@ -1,0 +1,29 @@
+[
+  {
+    "id": "linkx",
+    "name": "LinkX",
+    "href": "https://github.com/coleyrockin/linkx",
+    "role": "Personal hub",
+    "summary": "React and Vite link hub with a WebGL backdrop, hidden terminal, GitHub activity, and Playwright/axe CI.",
+    "meta": "React / Vite / WebGL / CI",
+    "toneClass": "tone-linkx"
+  },
+  {
+    "id": "portfolio",
+    "name": "Portfolio",
+    "href": "https://coleyrockin.github.io/react-portfolio/",
+    "role": "Project gallery",
+    "summary": "Longer-form project gallery for shipped interfaces, frontend builds, and visual experiments.",
+    "meta": "Projects / UI / Frontend",
+    "toneClass": "tone-portfolio"
+  },
+  {
+    "id": "agent-daily-ai",
+    "name": "Agent Daily AI",
+    "href": "https://github.com/coleyrockin",
+    "role": "Agent workflows",
+    "summary": "Browser-automation and social-agent workflows built around isolated profiles and repeatable operations.",
+    "meta": "Agents / Playwright / Automation",
+    "toneClass": "tone-agent"
+  }
+]

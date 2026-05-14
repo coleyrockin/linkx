@@ -7,13 +7,13 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: "list",
   use: {
-    baseURL: "http://localhost:4173/linkx/",
+    baseURL: "http://127.0.0.1:4188/linkx/",
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run build && npm run preview -- --port 4173 --strictPort",
-    url: "http://localhost:4173/linkx/",
-    reuseExistingServer: !process.env.CI,
+    command: "npm run build && npm run preview",
+    url: "http://127.0.0.1:4188/linkx/",
+    reuseExistingServer: false,
     timeout: 120_000,
   },
   projects: [

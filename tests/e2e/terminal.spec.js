@@ -34,6 +34,17 @@ test.describe("Konami-code terminal", () => {
     const terminal = page.getByRole("dialog", { name: /terminal/i });
     await expect(terminal.getByText("whoami")).toBeVisible();
     await expect(terminal.getByText(/things i've shipped/i)).toBeVisible();
+    await expect(terminal.getByText(/featured work on the page/i)).toBeVisible();
+  });
+
+  test("work command prints featured work", async ({ page }) => {
+    await triggerKonami(page);
+    const input = page.getByLabel(/terminal input/i);
+    await input.fill("work");
+    await input.press("Enter");
+    const terminal = page.getByRole("dialog", { name: /terminal/i });
+    await expect(terminal.getByText(/featured work:/i)).toBeVisible();
+    await expect(terminal.getByText(/agent daily ai/i)).toBeVisible();
   });
 
   test("opens via the visible panel button (touch-friendly)", async ({ page }) => {

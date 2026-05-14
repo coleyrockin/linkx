@@ -4,6 +4,7 @@ import LINKS from "../data/links";
 import useParticleField from "../hooks/useParticleField";
 import useShaderField from "../hooks/useShaderField";
 import useKonamiCode from "./Terminal/useKonamiCode";
+import FeaturedWork from "./FeaturedWork";
 import { trackOutbound } from "../lib/analytics";
 
 const Terminal = lazy(() => import("./Terminal/Terminal"));
@@ -21,7 +22,7 @@ function LinkXPage() {
   }, []);
 
   const shaderSupported = useShaderField(shaderRef);
-  useParticleField(shaderSupported ? particleRef : { current: null });
+  useParticleField(particleRef, shaderSupported === true);
 
   const openTerminal = useCallback(() => setTerminalOpen(true), []);
   const closeTerminal = useCallback(() => setTerminalOpen(false), []);
@@ -71,13 +72,16 @@ function LinkXPage() {
             <ul className="lx-list">
               {LINKS.map((link, i) => {
                 const Icon = link.icon;
-                const label = `${link.name} — ${link.tagline} (opens in new tab)`;
+                const opensInNewTab = /^https?:\/\//.test(link.href);
+                const label = opensInNewTab
+                  ? `${link.name} — ${link.tagline} (opens in new tab)`
+                  : `${link.name} — ${link.tagline}`;
                 return (
                   <li key={link.id} className="lx-list-item">
                     <a
                       href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target={opensInNewTab ? "_blank" : undefined}
+                      rel={opensInNewTab ? "noopener noreferrer" : undefined}
                       className={`lx-row ${link.toneClass}`}
                       style={{ "--i": i }}
                       data-link-id={link.id}
@@ -102,6 +106,8 @@ function LinkXPage() {
               })}
             </ul>
           </nav>
+
+          <FeaturedWork />
 
           <div className="lx-panel-divider" aria-hidden="true" />
 

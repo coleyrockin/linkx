@@ -1,8 +1,8 @@
 {
-  "updated": "2026-04-16",
+  "updated": "2026-05-13",
   "items": [
-    "Shipping LinkX v4 — WebGL shader backdrop, hidden terminal, live GitHub feed.",
-    "Building agents for Agent Daily AI across FB, IG, and X.",
-    "Reading: \"Designing Data-Intensive Applications.\""
+    "Polishing LinkX Personal Hub v2: Featured Work, terminal commands, and PWA cleanup.",
+    "Keeping public links and GitHub activity as the live source of truth.",
+    "Building browser-automation and agent workflows under Agent Daily AI."
   ]
 }

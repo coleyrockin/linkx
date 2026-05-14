@@ -8,8 +8,10 @@ const DRIFT_SPEED = 0.3;
 const DRIFT_DECAY = 0.995;
 const REPULSION_STRENGTH = 0.15;
 
-export default function useParticleField(canvasRef) {
+export default function useParticleField(canvasRef, active = true) {
   useEffect(() => {
+    if (!active) return undefined;
+
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
 
@@ -104,5 +106,5 @@ export default function useParticleField(canvasRef) {
       window.removeEventListener("resize", resize);
       if (!isCoarse) window.removeEventListener("pointermove", onMove);
     };
-  }, [canvasRef]);
+  }, [active, canvasRef]);
 }

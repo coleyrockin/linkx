@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react";
 const pagesBase = "/linkx/";
 
 export default defineConfig(({ command }) => ({
-  base: command === "serve" ? "/" : pagesBase,
+  base: command === "serve" && !process.argv.includes("preview") ? "/" : pagesBase,
   plugins: [
     react(),
     {

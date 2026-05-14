@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import linksData from "../../src/data/links.json" with { type: "json" };
+import highlightsData from "../../src/data/highlights.json" with { type: "json" };
 
 test.describe("LinkX smoke", () => {
   test.beforeEach(async ({ page }) => {
@@ -14,8 +15,23 @@ test.describe("LinkX smoke", () => {
     for (const link of linksData) {
       const locator = page.locator(`[data-link-id="${link.id}"]`);
       await expect(locator).toHaveAttribute("href", link.href);
-      await expect(locator).toHaveAttribute("target", "_blank");
-      await expect(locator).toHaveAttribute("rel", "noopener noreferrer");
+      if (link.href.startsWith("http")) {
+        await expect(locator).toHaveAttribute("target", "_blank");
+        await expect(locator).toHaveAttribute("rel", "noopener noreferrer");
+      } else {
+        await expect(locator).not.toHaveAttribute("target");
+        await expect(locator).not.toHaveAttribute("rel");
+      }
+    }
+  });
+
+  test("renders featured work from data", async ({ page }) => {
+    await expect(page.getByRole("heading", { name: /featured work/i })).toBeVisible();
+
+    for (const item of highlightsData) {
+      const locator = page.locator(`[data-highlight-id="${item.id}"]`);
+      await expect(locator).toHaveAttribute("href", item.href);
+      await expect(locator).toContainText(item.name);
     }
   });
 
