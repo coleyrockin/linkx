@@ -34,17 +34,7 @@ test.describe("Konami-code terminal", () => {
     const terminal = page.getByRole("dialog", { name: /terminal/i });
     await expect(terminal.getByText("whoami")).toBeVisible();
     await expect(terminal.getByText(/things i've shipped/i)).toBeVisible();
-    await expect(terminal.getByText(/featured work on the page/i)).toBeVisible();
-  });
-
-  test("work command prints featured work", async ({ page }) => {
-    await triggerKonami(page);
-    const input = page.getByLabel(/terminal input/i);
-    await input.fill("work");
-    await input.press("Enter");
-    const terminal = page.getByRole("dialog", { name: /terminal/i });
-    await expect(terminal.getByText(/featured work:/i)).toBeVisible();
-    await expect(terminal.getByText(/portfolio.*project gallery/i)).toBeVisible();
+    await expect(terminal.getByText(/current static now feed/i)).toBeVisible();
   });
 
   test("opens via the visible panel button (touch-friendly)", async ({ page }) => {
@@ -56,6 +46,13 @@ test.describe("Konami-code terminal", () => {
     await triggerKonami(page);
     await expect(page.getByRole("dialog", { name: /terminal/i })).toBeVisible();
     await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog", { name: /terminal/i })).not.toBeVisible();
+  });
+
+  test("closes from the terminal chrome button", async ({ page }) => {
+    await page.getByRole("button", { name: /open terminal/i }).click();
+    await expect(page.getByRole("dialog", { name: /terminal/i })).toBeVisible();
+    await page.getByRole("button", { name: /close terminal/i }).click();
     await expect(page.getByRole("dialog", { name: /terminal/i })).not.toBeVisible();
   });
 });

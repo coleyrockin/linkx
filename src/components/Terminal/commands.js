@@ -1,5 +1,4 @@
 import LINKS from "../../data/links";
-import HIGHLIGHTS from "../../data/highlights.json";
 import NOW from "../../data/now.json";
 
 const SKILLS = [
@@ -36,7 +35,6 @@ export const COMMANDS = {
     "  whoami      — short bio",
     "  skills      — stack and strengths",
     "  projects    — things I've shipped",
-    "  work        — featured work on the page",
     "  now         — current static Now feed",
     "  repo        — source, live URL, and validation",
     "  contact     — reach me",
@@ -60,17 +58,6 @@ export const COMMANDS = {
       `  ${p.name}`,
       `    ${p.why}`,
       `    → ${p.href}`,
-      "",
-    ]).slice(0, -1),
-  ],
-
-  work: () => [
-    "featured work:",
-    ...HIGHLIGHTS.flatMap((item) => [
-      `  ${item.name} — ${item.role}`,
-      `    ${item.summary}`,
-      `    ${item.meta}`,
-      `    → ${item.href}`,
       "",
     ]).slice(0, -1),
   ],

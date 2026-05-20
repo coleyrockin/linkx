@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import { BANNER, runCommand } from "./commands";
 
 export default function Terminal({ onClose }) {
@@ -82,9 +83,11 @@ export default function Terminal({ onClose }) {
     >
       <div className="lx-terminal-window" onClick={(e) => e.stopPropagation()}>
         <div className="lx-terminal-chrome">
-          <span className="lx-terminal-dot" data-color="r" />
-          <span className="lx-terminal-dot" data-color="y" />
-          <span className="lx-terminal-dot" data-color="g" />
+          <span className="lx-terminal-controls" aria-hidden="true">
+            <span className="lx-terminal-dot" data-color="r" />
+            <span className="lx-terminal-dot" data-color="y" />
+            <span className="lx-terminal-dot" data-color="g" />
+          </span>
           <span className="lx-terminal-title">boyd@linkx — zsh</span>
           <button
             type="button"
@@ -92,7 +95,7 @@ export default function Terminal({ onClose }) {
             onClick={onClose}
             aria-label="Close terminal"
           >
-            ×
+            <FaTimes aria-hidden="true" focusable="false" />
           </button>
         </div>
 

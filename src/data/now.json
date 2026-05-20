@@ -1,7 +1,7 @@
 {
-  "updated": "2026-05-13",
+  "updated": "2026-05-20",
   "items": [
-    "Polishing LinkX Personal Hub v2: Featured Work, terminal commands, and PWA cleanup.",
+    "Polishing LinkX Personal Hub v2: a tighter dark link stack, live activity, and terminal controls.",
     "Keeping public links and GitHub activity as the live source of truth.",
     "Refining the single-screen hub so the strongest links and project proof stay easy to scan."
   ]

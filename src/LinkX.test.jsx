@@ -50,8 +50,6 @@ describe("LinkX smoke test", () => {
     render(<LinkXPage />);
 
     expect(screen.getByRole("article", { name: /profile and links/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /featured work/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /portfolio.*project gallery/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /open terminal/i })).toBeInTheDocument();
     expect(await screen.findByRole("heading", { name: /^now$/i })).toBeInTheDocument();
   });

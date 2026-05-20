@@ -4,7 +4,6 @@ import LINKS from "../data/links";
 import useParticleField from "../hooks/useParticleField";
 import useShaderField from "../hooks/useShaderField";
 import useKonamiCode from "./Terminal/useKonamiCode";
-import FeaturedWork from "./FeaturedWork";
 import { trackOutbound } from "../lib/analytics";
 
 const Terminal = lazy(() => import("./Terminal/Terminal"));
@@ -106,8 +105,6 @@ function LinkXPage() {
               })}
             </ul>
           </nav>
-
-          <FeaturedWork />
 
           <div className="lx-panel-divider" aria-hidden="true" />
 

@@ -6,7 +6,7 @@ describe("terminal command parser", () => {
     const out = runCommand("help");
     expect(out.length).toBeGreaterThan(4);
     const joined = out.join(" ");
-    for (const cmd of ["whoami", "skills", "projects", "work", "now", "repo", "contact", "clear", "exit"]) {
+    for (const cmd of ["whoami", "skills", "projects", "now", "repo", "contact", "clear", "exit"]) {
       expect(joined).toContain(cmd);
     }
   });
@@ -54,14 +54,9 @@ describe("terminal command parser", () => {
     expect(out).toContain("https://github.com/coleyrockin/linkx");
   });
 
-  test("work output contains featured work", () => {
-    const out = runCommand("work").join(" ");
-    expect(out).toContain("Portfolio");
-  });
-
   test("now output contains the static now feed", () => {
     const out = runCommand("now").join(" ");
-    expect(out).toContain("2026-05-13");
+    expect(out).toContain("2026-05-20");
     expect(out).toMatch(/Personal Hub v2/i);
   });
 
