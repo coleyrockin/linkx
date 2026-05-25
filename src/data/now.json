@@ -1,8 +1,8 @@
 {
-  "updated": "2026-05-20",
+  "updated": "2026-05-25",
   "items": [
-    "Polishing LinkX Personal Hub v2: a tighter dark link stack, live activity, and terminal controls.",
+    "Auditing LinkX for dependency hygiene, PWA consistency, accessibility, and visual polish.",
     "Keeping public links and GitHub activity as the live source of truth.",
-    "Refining the single-screen hub so the strongest links and project proof stay easy to scan."
+    "Keeping the single-screen hub dark, fast, and easy to scan."
   ]
 }

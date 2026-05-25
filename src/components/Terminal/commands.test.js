@@ -56,8 +56,8 @@ describe("terminal command parser", () => {
 
   test("now output contains the static now feed", () => {
     const out = runCommand("now").join(" ");
-    expect(out).toContain("2026-05-20");
-    expect(out).toMatch(/Personal Hub v2/i);
+    expect(out).toContain("2026-05-25");
+    expect(out).toMatch(/Auditing LinkX/i);
   });
 
   test("repo output contains live and source URLs", () => {

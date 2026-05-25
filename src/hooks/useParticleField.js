@@ -58,7 +58,7 @@ export default function useParticleField(canvasRef, active = true) {
           const dx = p.x - mouse.x;
           const dy = p.y - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CURSOR_INFLUENCE_RADIUS) {
+          if (dist > 0 && dist < CURSOR_INFLUENCE_RADIUS) {
             const force = (CURSOR_INFLUENCE_RADIUS - dist) / CURSOR_INFLUENCE_RADIUS;
             p.vx += (dx / dist) * force * REPULSION_STRENGTH;
             p.vy += (dy / dist) * force * REPULSION_STRENGTH;

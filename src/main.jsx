@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 import LinkXPage from "./components/LinkXPage";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { loadAnalytics } from "./lib/analytics";
+
+loadAnalytics();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

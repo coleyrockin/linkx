@@ -1,6 +1,6 @@
 // LinkX service worker — cache-first for the shell, network-first for everything else.
 // Bumping CACHE keeps upgrades honest (old entries auto-expire on activation).
-const CACHE = "linkx-v2";
+const CACHE = "linkx-v3";
 const SHELL = [
   "/linkx/",
   "/linkx/index.html",
