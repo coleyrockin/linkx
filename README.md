@@ -1,88 +1,110 @@
 # LinkX
 
-A hand-built personal link hub in React — a single-screen "constellation" with a WebGL aurora, a hidden terminal, and a live "Now" feed fed from the GitHub API.
+A single-screen personal hub in React for a small, high-signal professional presence.
 
 [![Deploy](https://github.com/coleyrockin/linkx/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/coleyrockin/linkx/actions/workflows/deploy-pages.yml)
 [![Audit](https://github.com/coleyrockin/linkx/actions/workflows/audit.yml/badge.svg)](https://github.com/coleyrockin/linkx/actions/workflows/audit.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**[Live site →](https://coleyrockin.github.io/linkx/)**
+**Live site:** [https://coleyrockin.github.io/linkx/](https://coleyrockin.github.io/linkx/)
 
-![LinkX](src/assets/imgs/LinkxRefactor.jpg)
+![LinkX Screenshot](src/assets/imgs/LinkxRefactor.jpg)
 
-## Why this exists
+## What this project is
 
-Most link-in-bio pages are rented real estate on someone else's platform. LinkX is a small, deliberate alternative: mine to own, mine to style, and a playground for the motion, graphics, and accessibility work I enjoy.
+LinkX is a **portfolio-facing link hub** with:
 
-## What it demonstrates
+- Curated outbound links
+- A GitHub activity section (live feed with static fallback)
+- Visual motion layers (WebGL shader + particle field + CSS effects)
+- A hidden developer terminal with parser-backed commands
+- Service worker registration for installability/offline behavior
 
-- **WebGL fragment-shader backdrop.** A full-screen aurora rendered by a GLSL fragment shader — layered simplex-noise FBM with cursor-driven warp. Dark-first and motion-aware (animation paused when `prefers-reduced-motion` is set). Falls back to a CSS aurora if WebGL is unavailable. See [`useShaderField.js`](src/hooks/useShaderField.js).
-- **Canvas 2D particle field.** A second layer — ~80 softly-repelling particles with cursor interaction and neighbor-connection lines — running in a single `requestAnimationFrame` loop. Extracted into [`useParticleField.js`](src/hooks/useParticleField.js).
-- **Hidden developer terminal.** The Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`) opens a real interactive terminal. Core commands: `help`, `whoami`, `skills`, `projects`, `now`, `repo`, `contact`, `links`, `theme`, `clear`, `exit`. Easter-egg shell commands: `ls`, `pwd`, `date`, `echo`, `sudo`, `rm -rf /`. The visible panel button opens the same terminal for touch users. Every command is unit-tested; the terminal is e2e-tested via Playwright. See [`Terminal/`](src/components/Terminal/).
-- **Live "Now" feed from the GitHub API.** The Now section fetches my most recent public pushes, dedupes by repo, and formats relative timestamps. Cached in `localStorage` with a 15-minute TTL; gracefully falls back to a static JSON list if the API is unreachable or rate-limited. See [`lib/github.js`](src/lib/github.js).
-- **Dark signal-stack theme.** The palette, shader colors, particle opacity, and glass panels stay dark across browsers so Chrome/OS light mode cannot wash out the interface.
-- **Progressive enhancement end-to-end.** Shader → canvas → CSS. JavaScript-off still shows the link stack. Service worker makes it installable and offline-capable.
-- **Privacy-friendly analytics.** Outbound clicks tracked through Plausible (no cookies, no PII) via a [`trackOutbound`](src/lib/analytics.js) helper with a dev-mode console fallback.
-- **Accessible by default.** Skip-link, semantic landmarks, labeled `nav` and `dialog`, visible focus rings, explicit outbound link labels, `rel="noopener noreferrer"` on external links. Enforced in CI by axe-core.
-- **Data-driven content.** [`links.json`](src/data/links.json) and [`now.json`](src/data/now.json) decouple content from presentation.
-- **Error boundary.** If the app crashes, the user still sees their most important links and a retry button — not a blank screen. See [`ErrorBoundary.jsx`](src/components/ErrorBoundary.jsx).
-- **Real CI.** Every push runs unit tests before deploy; a parallel audit workflow runs end-to-end Playwright tests and an axe a11y audit against the built site.
+The app intentionally stays single-screen and does not attempt to become a full CMS.
+
+## Current scope (as of latest docs update)
+
+- Production path: `https://coleyrockin.github.io/linkx/`
+- Local development path: `http://localhost:5188/` (`strictPort: 5188`)
+- Core runtime data sources: `src/data/links.json`, `src/data/links.js`, `src/data/now.json`
+- GitHub activity fallback: `src/lib/github.js` (localStorage cache + API fallback behavior)
+
+## What it demonstrates today
+
+- React + Vite SPA composition
+- Canvas/WebGL progressive enhancement for visual background
+- Terminal command handling via shared command map
+- Error boundary with fallback links and retry
+- CI with build, lint, unit tests, and Playwright + axe coverage
 
 ## Tech stack
 
-- **React 18** on **Vite 6**
-- **Vanilla CSS** with custom-property-driven theming (no Tailwind, no CSS-in-JS)
-- **Canvas 2D** and **WebGL 1** for the backdrops
-- **react-icons** for social/link icons
-- **Vitest** + **@testing-library/react** for unit tests
-- **Playwright** + **@axe-core/playwright** for end-to-end and a11y tests
-- **ESLint 9** (flat config) for lint
-- **Service worker** for PWA offline support
-- **GitHub Actions** → **GitHub Pages** for deploys
+- React 18 + Vite 6
+- Vanilla CSS
+- Canvas 2D + WebGL 1
+- Vitest + Testing Library
+- Playwright + @axe-core/playwright
+- ESLint 9 (flat config)
+- GitHub Actions + GitHub Pages
 
-## Keyboard shortcuts
+## Project status
 
-- `Tab` — cycle through skip-link, links, activity, and terminal button.
-- `Enter` — activate the focused link or button.
-- `↑ ↑ ↓ ↓ ← → ← → B A` — open the hidden terminal. (Or click/tap **Open terminal** — same thing.)
-- `Esc` — close the terminal.
+- `DONE`: Foundation, styling, rendering stack, terminal, Now feed, PWA registration, and test coverage.
+- `DONE`: Accessibility-first basics (keyboard flow, semantic landmarks, terminal semantics, smoke + axe checks).
+- `PLANNED`: The next agent roadmap is documented in [`ROADMAP.md`](ROADMAP.md).
 
-## Local development
+## Setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open **http://localhost:5188/** (Vite is pinned to port **5188** with `strictPort` so you do not accidentally hit another project on the default **5173**). Local dev uses base `/`; production builds still use `/linkx/` for GitHub Pages.
+Then open [http://localhost:5188/](http://localhost:5188/).
 
-Preview builds run on **http://127.0.0.1:4188/linkx/**, also with `strictPort`, so screenshots and Playwright audits do not reuse another local app by accident.
-
-## Tests
+## Run and verify
 
 ```bash
-npm test            # Unit tests (Vitest) — commands parser, rendering contract
-npm run test:e2e    # End-to-end + a11y audit (Playwright + axe-core)
-npm run lint        # ESLint flat config, zero warnings allowed
+npm run lint            # ESLint
+npm test                # Vitest
+npm run build           # production build
+npm run test:e2e        # Playwright + axe checks
+npm audit --omit=dev    # dependency risk check
+```
+
+### Local scripts
+
+```bash
+npm run og              # regenerate public/og-image.jpg from scripts/og.svg
+npm run screenshot      # capture the README/demo asset image
 ```
 
 ## Deployment
 
-Pushes to `main` run [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml): unit tests → Vite build → Pages artifact → deploy. The audit workflow ([`.github/workflows/audit.yml`](.github/workflows/audit.yml)) runs the full Playwright suite against the built site in parallel.
+- Pushes to `main` trigger deployment workflow:
+  - GitHub Pages artifact build and publish
+  - Audit workflow runs Playwright + axe checks
+- See: [deploy-pages.yml](.github/workflows/deploy-pages.yml), [audit.yml](.github/workflows/audit.yml)
 
-## Regenerating assets
+## Keyboard shortcuts
 
-```bash
-npm run og          # Rebuild public/og-image.jpg from scripts/og.svg
-npm run screenshot  # Capture a fresh README screenshot from a running preview
-```
+- `Tab` — cycle focus, including skip link and core controls
+- `Enter` — activate focused controls
+- `↑ ↑ ↓ ↓ ← → ← → B A` — open hidden terminal
+- `Esc` — close terminal
 
-## What I'd build next
+## Documentation
 
-- **Shader evolution** — swap the aurora fragment shader for a reaction-diffusion simulation or signed-distance-field metaballs. The same uniforms and resize logic already live in [`useShaderField.js`](src/hooks/useShaderField.js).
-- **Fresh asset pipeline** — generate the README screenshot and OG image in CI so docs stay synchronized with the deployed UI.
-- **Per-link landing pages** — keep this hub as the entry point, then add static detail pages only for links that need richer context.
+- [ROADMAP.md](ROADMAP.md): next-agent operating plan with priorities, acceptance criteria, and risk controls.
+- [LICENSE](LICENSE)
 
-## License
+## Known limitations
 
-[MIT](LICENSE)
+- The Now feed is a combination of live GitHub data and static fallback data in `src/data/now.json`.
+- External links are intentionally opened in a new tab; `mailto:` stays same-tab behavior.
+- Third-party fonts and analytics script are environment-dependent.
+
+## Why this belongs in a portfolio
+
+- It demonstrates visual execution with operational constraints (testing, CI, accessibility checks, and deployment hygiene).
+- It balances polish with restraint and keeps the signal clear for hiring/portfolio review.
